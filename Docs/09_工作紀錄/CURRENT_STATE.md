@@ -56,6 +56,7 @@ updated: 2026-08-11
 - 已完成 0.1.0（build 5）封裝、敏感資料稽核、Apple 上傳、處理與內部群組指派；此版納入 iPad 比例修正，內容版維持 `0.2.1`、983 題候選、15 個題圖與 17 題治理例外。Apple 顯示「正在測試」，未啟用外部測試、Beta App Review 或 App Review。
 - 已依 GitHub `macos-26` runner 現行映像將 CI latest iPhone 改為 iPhone 17 Pro；iPhone 16e 只存在較舊 runtime，不再與 `OS=latest` 組合造成找不到 simulator 的假失敗。課程閱讀 smoke 的冷啟動等待亦已加固。
 - 已將公開基線提交至 `agent/initial-public-baseline`（commit `eb0621d`），並建立 [Draft PR #1](https://github.com/playjackhsu-cpu/3Tcrane/pull/1)。首輪 GitHub Actions 已全數通過：Governance、12 項 unit／升級保留、Release build、iPhone UI smoke 與 iPad UI smoke；PR 維持 Draft，尚未合併至 `main`。
+- 已在 GitHub 啟用 Active `Protect main` Ruleset，目標為預設分支 `main`，無 bypass；禁止刪除與 force push、要求 linear history、PR、對話解決、分支保持最新，並將 `public-repository-gate`、`Unit tests`、`Release build`、`iPhone UI smoke test`、`iPad UI smoke test` 設為必要檢查。單人維護階段依既定治理維持 0 個必要核准，改以 CI 全綠與 Owner checklist 明示核准作 gate。
 - 已更新 [[Docs/07_發布與維運/TestFlight測試版交付清單]]，完整記錄候選版功能、QA 證據、Apple 上傳結果、內部測試治理與未完成名單條件；公開文件不含測試者信箱、Team ID、憑證或 Apple 內部識別碼。
 
 ## 尚未完成
@@ -63,7 +64,7 @@ updated: 2026-08-11
 - 正式公開發行題庫尚未核准；1,000／1,000 題已完成官方來源第一輪資料審查，983 題目前只進入受控 Internal TestFlight，仍須通過內容權利、獨立技術來源、法規發行時點、解析編審與正式 App QA。目前可公開發行題數仍為 0，不把「內部完整測試」誤稱為「已核准發布」。
 - 17 題例外仍待個別處理：5 題須取得足以解決答案衝突的權威證據，4 題須在發版日重查修法生效狀態，8 題官方刪題只作歷史保留。
 - UI 已完成 iPhone／iPad 核心流程與直向畫面檢查；尚未完成 Dark／High Contrast、Dynamic Type、VoiceOver、橫向／多工與多款實機完整驗證。
-- 已確認指定 `origin` 的 GitHub SSH 驗證可用，並以不含任何專案內容的一次性空白 root commit 建立遠端 `main` 作為 PR base；首個公開內容 Draft PR #1 已建立且首輪 CI 全綠。PR 尚未合併，GitHub ruleset／security／Pages 尚未設定。
+- 已確認指定 `origin` 的 GitHub SSH 驗證可用，並以不含任何專案內容的一次性空白 root commit 建立遠端 `main` 作為 PR base；首個公開內容 Draft PR #1 已建立且最新 CI 全綠。`Protect main` Ruleset 已啟用，PR 尚未合併；GitHub security 與 Pages 仍尚未設定。
 - Internal TestFlight build 5 已上線；群組目前有 2 位測試人員。其餘 3 位指定聯絡人仍須具備 App Store Connect 帳號、正確姓／名與合格角色後，才能以最低必要權限完成邀請；10 人規劃仍有 5 個未指定名額。
 
 ## 下一個可執行工作

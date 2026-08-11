@@ -59,7 +59,7 @@ CI 不進行簽章、不上傳 TestFlight、不持有 Apple Distribution 憑證�
 1. 本機初始化 `main` 與 `origin`，完成公開資料、題庫與文件連結 gate。（已完成）
 2. 空倉庫以一次性空白 root commit 建立遠端 `main`，不攜帶專案內容，僅作為首個 PR 的 base。（已完成）
 3. 從空白 `main` 建立 `agent/initial-public-baseline`；文件、合成 fixture、CI、可公開素材與 App skeleton 經同一個 Draft PR 接受完整 CI。（進行中）
-4. 首個內容 PR 合併前設定 ruleset、安全功能與必要 status checks；後續不得直接推送 `main`。
+4. 首個內容 PR 合併前設定 ruleset、安全功能與必要 status checks；後續不得直接推送 `main`。（`Protect main` Ruleset 與五項必要 checks 已完成；安全功能仍待設定。）
 5. GitHub Pages 只在 Privacy／Support 靜態頁內容另行核准後啟用。
 
 一次性空白 root commit 是空倉庫建立 PR base 的行政例外，不得援引為日後直接推送 `main` 的先例。
