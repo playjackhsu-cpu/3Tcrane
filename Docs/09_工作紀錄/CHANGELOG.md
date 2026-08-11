@@ -2,6 +2,7 @@
 
 ## 2026-08-11
 
+- 將首個公開基線提交至 `agent/initial-public-baseline`（commit `eb0621d`）並建立 Draft PR #1；首輪 GitHub Actions 的 Governance、12 項 unit／升級保留、Release build、iPhone UI smoke 與 iPad UI smoke 全數通過。PR 維持 Draft，尚未合併至 `main`。
 - 依 iPad 直向／橫向實機截圖調整分割導覽比例：sidebar 改為 240～280 pt、理想 260 pt，使用 balanced split view；側欄與首頁改為 inline title，hero 內文限制為 900 pt，避免大標題、過寬側欄與橫向內容拉伸。新增 iPad 側欄比例 UI gate，完整 iPad UI 回歸通過。
 - 修正 CI 的 iPhone simulator 假失敗：`iPhone 16e + OS=latest` 在 Xcode 26.6 latest runtime 不存在，依 GitHub `macos-26` runner 現行映像改為 `iPhone 17 Pro + OS=latest`；同時將課程冷啟動等待改為穩定的 10 秒上限，單項 iPad 測試連續通過兩次。
 - 重新稽核公開 Git 候選範圍與忽略規則：`PrivateResources/` 私有題庫、`Artifacts/`、Apple 簽章與建置產物均未進入候選；公開資料、題庫 schema 與文件連結 gate 通過。
