@@ -2,6 +2,8 @@
 
 ## 2026-08-11
 
+- `1.0.0`（build 6）已透過 Apple Transporter 上傳並完成處理，選入 App Store 版本；經 Owner 明確確認後，發佈 App Privacy「不收集資料」聲明、沿用既有正式審查聯絡資料並確認第三方內容必要權利。版本已提交 Apple，狀態為「正在等待審查」，核准後採手動發佈；公開文件不記錄審查聯絡人的電話或信箱。
+- PR #6 的 Governance、unit／升級保留、Release build、iPhone UI smoke 與 iPad UI smoke 已全數通過；首次 unit runner 未載入任何 iOS simulator 的暫時性失敗經單項重跑後通過，未修改程式或降低測試 gate。
 - 依 Owner 指示將 App Store 首發價格改為免費；App Store Connect 回讀 175 個國家／地區價格均為 0.00，供應地維持台灣。版本欄位同步為 `1.0.0`，發布方式維持手動；未選正式建置、未按新增以供審查，也未代填私密聯絡資料。
 - 建立可重建的正式題庫 release candidate：983 題一般抽題、17 題治理例外與 15 個題圖，公開包移除私有來源定位並寫入技能檢定中心政府網站資料開放宣告的授權連結與顯名；release JSON SHA-256 為 `7399af027135ea462811d55bdc3f91dccefaf967dca7b92065aea7cfbcaaed15`。
 - 將 App 版本升為 `1.0.0`（build 6），正式 bundle 只嵌入 release JSON 與 15 個題圖，不再攜帶合成 fixture 或私有題庫。14／14 unit／升級保留、iPhone UI 5 通過／2 跳過、iPad UI 6 通過／1 跳過、iPhone／iPad Release build 均為 0 失敗。

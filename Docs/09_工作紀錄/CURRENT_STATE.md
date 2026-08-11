@@ -61,27 +61,27 @@ updated: 2026-08-11
 - 已完成暗色模式第一輪修正：8 組品牌語意色具備一致的 Light／Dark 動態值，頁面、側欄、導覽列、卡片、標題、次要文字與互動色會同步切換；主要文字、次要文字與互動藍色具有至少 4.5:1 自動對比 gate。14 項 unit tests、iPhone 7 項與 iPad 7 項完整 UI 回歸均 0 失敗，並保留暗色首頁截圖證據。
 - 已為連接實機建立不同 Bundle ID 的合成題庫 QA App，避免覆蓋 Internal TestFlight App 或既有學習紀錄；iPhone 11 與 iPad 均已完成安裝及 Dark Mode 前景啟動 smoke。QA App、裝置識別資訊、簽章與測試產物均未進入公開 Git。
 - 已完成 App Store 首發繁體中文文案：副標題「固定式起重機單一級技能檢定」、教育／參考分類、96 bytes 關鍵字、宣傳文字、完整說明、App Review 導覽與獨立工具聲明；「自動更新」明確限定為隨新版 App 取得重新整理的內建內容，不宣稱 App 內即時同步題庫。
-- App Store Connect 首發價格已依 Owner 指示改為免費：175 個國家／地區價格均為 0.00，供應地仍維持台灣；並已設定 4+ 年齡分級、不需登入、手動發布及「不收集資料」問卷。版本欄位已同步為 `1.0.0`；未按下 App Review、未選正式建置版本，也未代填私密審查聯絡資料。
+- App Store Connect 首發價格已依 Owner 指示改為免費：175 個國家／地區價格均為 0.00，供應地仍維持台灣；並已設定 4+ 年齡分級、不需登入、手動發布及「不收集資料」問卷。版本欄位已同步為 `1.0.0`。
 - 已擷取並逐張檢查 iPhone 6.5 吋 1284×2778 與 iPad 12.9 吋 2048×2732 上架候選截圖；前三張依「題庫測驗、課程學習、學習記錄」呈現，舊測試版號的設定頁不列入上傳候選。截圖保存在 Git 忽略的 `Artifacts/`，不進公開倉庫。
 - 已將稽核後的 3 張 iPhone 6.5 吋與 3 張 iPad 12.9／13 吋截圖上傳至 App Store Connect 1.0；兩種裝置均回讀為 3 張且由 Apple 自動保存。未上傳含舊測試版號的設定頁，亦未選建置版本或新增以供審查。
 - 已建立無追蹤的靜態隱私權政策與支援頁，以及只從 `main` 部署 `Site/` 的 GitHub Pages workflow；四個官方 Actions 均以其現行主要版本 commit SHA 固定，避免浮動 tag 供應鏈風險。
 - GitHub Pages 已以 workflow 模式啟用並完成首次成功部署；公開隱私權政策與支援頁均以未登入 HTTP 請求回讀為 200。
 - 已建立 App Store 正式題庫 release candidate：內容版 `0.2.1`，983 題一般抽題、17 題治理例外（8／5／4）與 15 個題圖；每題保留公開來源及官方參考答案審查狀態，公開包移除私有頁碼、掃描來源與內部路徑，並加入技能檢定中心政府網站資料開放宣告之顯名與授權連結。發行包 SHA-256 為 `7399af027135ea462811d55bdc3f91dccefaf967dca7b92065aea7cfbcaaed15`。
 - App Store `1.0.0`（build 6）發行候選 QA 通過：14／14 unit／升級保留測試、iPhone UI 5 通過／2 項裝置條件跳過、iPad UI 6 通過／1 項裝置條件跳過、iPhone／iPad Release build 均成功，兩平台 0 失敗。正式 bundle 回讀為版本 `1.0.0`、build `6`、983 題、17 題例外、15 個題圖，且只含正式題庫 JSON、不含合成或私有題庫。
-- 已建立 `1.0.0`（build 6）本機 signed archive 與 App Store Connect 匯出 IPA；重新簽章後回讀 `get-task-allow=false`、`beta-reports-active=true`、`ITSAppUsesNonExemptEncryption=false`，內容與私有標記掃描通過。IPA SHA-256 為 `387e4760befc9c2a5605a2aed94b8ce6b5bc570af5224c07fa2c6f7f95996921`；archive／IPA 只保存在 Git 忽略的 `Artifacts/`，尚未上傳 Apple。
+- 已建立 `1.0.0`（build 6）本機 signed archive 與 App Store Connect 匯出 IPA；重新簽章後回讀 `get-task-allow=false`、`beta-reports-active=true`、`ITSAppUsesNonExemptEncryption=false`，內容與私有標記掃描通過。IPA SHA-256 為 `387e4760befc9c2a5605a2aed94b8ce6b5bc570af5224c07fa2c6f7f95996921`；archive／IPA 只保存在 Git 忽略的 `Artifacts/`。
+- `1.0.0`（build 6）已透過 Apple Transporter 上傳並完成處理，選入 App Store 版本後由 Owner 確認審查聯絡資料、App Privacy「不收集資料」聲明及第三方內容必要權利。版本已正式提交 Apple，App Store Connect 狀態為「正在等待審查」；核准後仍採手動發佈。
 
 ## 尚未完成
 
-- 983 題正式 release candidate 已完成公開包、資料授權評估與本機正式 App QA；正式送審前仍需 Owner 回讀非背書聲明、授權顯名及特別權利排除條件，並在 App Store Connect 完成 Content Rights 最終聲明。此 gate 是送審法律／權利確認，不再阻塞程式與 CI／PR。
 - 17 題例外已完整納入 App 的可展開審查卡，但不參與一般抽題：8 題官方刪題只作歷史保留、5 題明顯答案／題意衝突顯示現行判定、4 題法規生效過渡題顯示過渡原因；官方或法規後續變更時再逐題重審。
 - UI 已完成 iPhone／iPad 核心流程、iPad 比例與 Dark 模式的模擬器檢查；尚未完成 High Contrast、Dynamic Type、VoiceOver、橫向／多工與多款實機完整驗證。
 - 已確認指定 `origin` 的 GitHub SSH 驗證可用；PR #1 已合併至 `main`，`Protect main` Ruleset 與五道必要檢查維持啟用，GitHub Pages 已完成部署。GitHub security 的額外選配項目仍可後續強化，但不影響目前 PR gate。
 - Internal TestFlight build 5 已上線；群組目前有 2 位測試人員。其餘 3 位指定聯絡人仍須具備 App Store Connect 帳號、正確姓／名與合格角色後，才能以最低必要權限完成邀請；10 人規劃仍有 5 個未指定名額。
-- 隱私權政策／支援 URL 已部署並可公開讀取，截圖與本機 signed archive／IPA 亦已完成；仍未完成的 Apple gate 為 build 6 上傳與選版、App Review 私密聯絡資料、App Privacy 最終發布、Content Rights 最終確認及「新增以供審查」。
+- 隱私權政策／支援 URL 已部署並可公開讀取；build 6 上傳、選版、App Review 聯絡資料、App Privacy 發佈、Content Rights 確認及正式提交均已完成。目前只需等待 Apple 審查結果，核准後由 Owner 執行手動發佈。
 
 ## 下一個可執行工作
 
-等待 `1.0.0`（build 6）草稿 PR 的五道必要檢查全綠及 Owner 合併核准。Owner 完成 Content Rights、App Privacy 與私密審查聯絡資料確認後，才上傳／選取既有 signed build 並按下「新增以供審查」。首版已免費，沒有 Paid Applications Agreement、銀行或稅務 gate。
+等待 Apple 對 `1.0.0`（build 6）的審查結果；核准後依既定設定由 Owner 手動發佈。程式治理另等待草稿 PR #6 的 Owner 合併核准；其 Governance、unit／升級保留、Release、iPhone UI 與 iPad UI 檢查已全綠。
 
 ## 不可遺忘
 
