@@ -1,0 +1,92 @@
+name: iOS CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ios-ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  DEVELOPER_DIR: /Applications/Xcode_26.6.app/Contents/Developer
+  PROJECT: ThreeTCraneStudy.xcodeproj
+  SCHEME: ThreeTCraneStudy
+
+jobs:
+  ios-unit:
+    name: Unit tests
+    runs-on: macos-26
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - name: Show toolchain
+        run: xcodebuild -version
+      - name: Run unit and upgrade-persistence tests
+        run: >-
+          xcodebuild -quiet
+          -project "$PROJECT"
+          -scheme "$SCHEME"
+          -configuration Debug
+          -destination 'platform=iOS Simulator,name=iPhone 17 Pro,OS=latest'
+          -derivedDataPath "$RUNNER_TEMP/DerivedData-unit"
+          -only-testing:ThreeTCraneStudyTests
+          CODE_SIGNING_ALLOWED=NO
+          test
+
+  ios-iphone:
+    name: iPhone UI smoke test
+    runs-on: macos-26
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - name: Run iPhone navigation and practice flow
+        run: >-
+          xcodebuild -quiet
+          -project "$PROJECT"
+          -scheme "$SCHEME"
+          -configuration Debug
+          -destination 'platform=iOS Simulator,name=iPhone 17 Pro,OS=latest'
+          -derivedDataPath "$RUNNER_TEMP/DerivedData-iphone"
+          -only-testing:ThreeTCraneStudyUITests
+          CODE_SIGNING_ALLOWED=NO
+          test
+
+  ios-ipad:
+    name: iPad UI smoke test
+    runs-on: macos-26
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - name: Run iPad sidebar and practice flow
+        run: >-
+          xcodebuild -quiet
+          -project "$PROJECT"
+          -scheme "$SCHEME"
+          -configuration Debug
+          -destination 'platform=iOS Simulator,name=iPad (A16),OS=latest'
+          -derivedDataPath "$RUNNER_TEMP/DerivedData-ipad"
+          -only-testing:ThreeTCraneStudyUITests
+          CODE_SIGNING_ALLOWED=NO
+          test
+
+  ios-release-build:
+    name: Release build
+    runs-on: macos-26
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - name: Build unsigned iPhone and iPad app
+        run: >-
+          xcodebuild -quiet
+          -project "$PROJECT"
+          -scheme "$SCHEME"
+          -configuration Release
+          -destination 'generic/platform=iOS'
+          -derivedDataPath "$RUNNER_TEMP/DerivedData-release"
+          CODE_SIGNING_ALLOWED=NO
+          build

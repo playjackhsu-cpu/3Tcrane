@@ -1,0 +1,56 @@
+# macOS / editor
+.DS_Store
+*.swp
+*.swo
+.obsidian/workspace*.json
+.trash/
+
+# Xcode user and build state
+DerivedData/
+build/
+*.xcarchive
+*.ipa
+*.dSYM
+*.dSYM.zip
+*.xcresult
+**/xcuserdata/
+*.xcuserstate
+*.moved-aside
+
+# Swift Package Manager
+.build/
+.swiftpm/xcode/package.xcworkspace/contents.xcworkspacedata
+.netrc
+
+# Secrets and Apple signing material
+.env
+.env.*
+!.env.example
+*.p12
+*.p8
+*.cer
+*.mobileprovision
+*.provisionprofile
+*.key
+*.pem
+AuthKey_*.p8
+ExportOptions.private.plist
+
+# Databases, backups and runtime records
+*.sqlite
+*.sqlite3
+*.db
+*.db-shm
+*.db-wal
+*.backup
+*.bak
+
+# Raw/private content. Keep only the policy README.
+PrivateResources/*
+!PrivateResources/README.md
+
+# Local QA evidence and exported reports
+Artifacts/
+Reports/private/
+TestResults/
+output/pdf/
