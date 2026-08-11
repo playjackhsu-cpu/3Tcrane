@@ -105,6 +105,22 @@ final class NavigationSmokeTests: XCTestCase {
         add(screenshot)
     }
 
+    func testHomeSupportsDarkModeOnPhoneOrPad() throws {
+        let app = XCUIApplication()
+        app.launchArguments = ["-ui-testing", "-AppleInterfaceStyle", "Dark"]
+        app.launch()
+
+        XCTAssertTrue(app.staticTexts["學習功能"].waitForExistence(timeout: 10))
+        XCTAssertTrue(app.buttons["home.startPractice"].exists)
+        XCTAssertTrue(app.staticTexts["學習進度"].exists)
+        XCTAssertTrue(app.staticTexts["目前內容"].exists)
+
+        let screenshot = XCTAttachment(screenshot: app.screenshot())
+        screenshot.name = "Home Dark Mode Contrast"
+        screenshot.lifetime = .keepAlways
+        add(screenshot)
+    }
+
     func testInternalReviewExceptionsShowAllGovernedCategories() throws {
         let app = XCUIApplication()
         app.launchArguments = ["-ui-testing"]
