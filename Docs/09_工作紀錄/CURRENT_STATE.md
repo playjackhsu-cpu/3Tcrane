@@ -63,6 +63,7 @@ updated: 2026-08-11
 - 已完成 App Store 首發繁體中文文案：副標題「固定式起重機單一級技能檢定」、教育／參考分類、96 bytes 關鍵字、宣傳文字、完整說明、App Review 導覽與獨立工具聲明；「自動更新」明確限定為隨新版 App 取得重新整理的內建內容，不宣稱 App 內即時同步題庫。
 - App Store Connect 已設定 US$0.99 基準價格、台灣 NT$30、台灣供應、4+ 年齡分級、不需登入、手動發布及「不收集資料」問卷；未按下 App Review、未選正式建置版本，也未代為接受付費合約或填入私密審查聯絡資料。
 - 已擷取並逐張檢查 iPhone 6.5 吋 1284×2778 與 iPad 12.9 吋 2048×2732 上架候選截圖；前三張依「題庫測驗、課程學習、學習記錄」呈現，舊測試版號的設定頁不列入上傳候選。截圖保存在 Git 忽略的 `Artifacts/`，不進公開倉庫。
+- 已將稽核後的 3 張 iPhone 6.5 吋與 3 張 iPad 12.9／13 吋截圖上傳至 App Store Connect 1.0；兩種裝置均回讀為 3 張且由 Apple 自動保存。未上傳含舊測試版號的設定頁，亦未選建置版本或新增以供審查。
 - 已建立無追蹤的靜態隱私權政策與支援頁，以及只從 `main` 部署 `Site/` 的 GitHub Pages workflow；四個官方 Actions 均以其現行主要版本 commit SHA 固定，避免浮動 tag 供應鏈風險。
 - 本次上架準備提交前 QA 通過：14／14 unit／升級保留測試、無簽章 Universal Release build、iPhone UI 5 通過／2 項裝置條件跳過、iPad UI 6 通過／1 項裝置條件跳過；兩平台均為 0 失敗。
 
@@ -73,12 +74,12 @@ updated: 2026-08-11
 - UI 已完成 iPhone／iPad 核心流程、iPad 比例與 Dark 模式的模擬器檢查；尚未完成 High Contrast、Dynamic Type、VoiceOver、橫向／多工與多款實機完整驗證。
 - 已確認指定 `origin` 的 GitHub SSH 驗證可用，並以不含任何專案內容的一次性空白 root commit 建立遠端 `main` 作為 PR base；首個公開內容 Draft PR #1 已建立且最新 CI 全綠。`Protect main` Ruleset 已啟用，PR 尚未合併；GitHub security 與 Pages 仍尚未設定。
 - Internal TestFlight build 5 已上線；群組目前有 2 位測試人員。其餘 3 位指定聯絡人仍須具備 App Store Connect 帳號、正確姓／名與合格角色後，才能以最低必要權限完成邀請；10 人規劃仍有 5 個未指定名額。
-- App Store 截圖尚未傳入：Chrome 的 ChatGPT 擴充功能未啟用本機檔案 URL 存取，因此檔案選擇器無法由受控瀏覽器上傳；本機候選檔已完成且未外流。隱私權政策／支援 URL 也要等 Pages 合併部署並以未登入瀏覽器驗證後才可填入。
+- 隱私權政策／支援 URL 仍要等 Draft PR 合併、Pages 啟用並以未登入瀏覽器驗證後才可填入；截圖已完成上傳，但正式建置版本、App Review 聯絡資料與送審仍受既定 gate 約束。
 - App Store Connect 雖顯示「具有第三方內容必要權利」，正式公開發行仍受內容權利 gate 約束；未取得書面權利證據前不得選正式建置版本或新增以供審查。
 
 ## 下一個可執行工作
 
-內容線下一步依 [[Docs/04_題庫與內容/OCR與逐題審查流程]] 處理 17 題例外、補足技術題的獨立公開來源、做解析編審與內容權利決策，再由 983 題候選產生可驗證的正式內容 release candidate；只有官方文字、題圖或衝突證據確實不清時才提出精確補拍清單。App 線先完成本次公開變更的 CI／Draft PR，待 Owner 啟用 Chrome 擴充功能的本機檔案 URL 存取後上傳已稽核的 3 張 iPhone 與 3 張 iPad 截圖；PR 合併並驗證 GitHub Pages 後再填支援／隱私 URL。正式公開題庫、建置版本選擇與 App Review 仍須等待內容權利、付費合約、聯絡資料及完整正式 QA gate。
+內容線下一步依 [[Docs/04_題庫與內容/OCR與逐題審查流程]] 處理 17 題例外、補足技術題的獨立公開來源、做解析編審與內容權利決策，再由 983 題候選產生可驗證的正式內容 release candidate；只有官方文字、題圖或衝突證據確實不清時才提出精確補拍清單。App 線先確認本次公開變更的 CI／Draft PR；PR 經 Owner 核准合併並驗證 GitHub Pages 後，再填支援／隱私 URL。正式公開題庫、建置版本選擇與 App Review 仍須等待內容權利、付費合約、聯絡資料及完整正式 QA gate。
 
 ## 不可遺忘
 
