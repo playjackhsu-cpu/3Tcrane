@@ -53,6 +53,7 @@ updated: 2026-08-11
 - Build 3 驗證全數通過：12／12 unit tests、iPhone 5／5 UI tests、iPad 5／5 UI tests，以及 iPhone／iPad 例外卡長文換行與捲動視覺檢查。封存再確認版本、簽章、題數、8／5／4 分類與私有欄位隔離。
 - 已完成 0.1.0（build 4）封裝、敏感資料稽核、Apple 上傳與內部群組指派；首頁 17 題例外卡改為預設收合，摘要顯示 17 題與 8／5／4 分類，點擊才展開逐題原因、正確答案與來源，再點可收合。收合／展開狀態具有明確無障礙標示，iPhone／iPad 完整 5 項 UI 回歸與 12 項 unit tests 均通過，Apple 顯示「正在測試」。
 - 已依 768×1024 直向與 1024×768 橫向實機截圖調整 iPad 比例：sidebar 使用 240～280 pt、理想 260 pt 的 balanced split view，側欄及首頁採 inline title，hero 內文限制為 900 pt；新增側欄比例 UI gate，避免後續回歸成過寬側欄或大標題版面。
+- 已完成 0.1.0（build 5）封裝、敏感資料稽核、Apple 上傳、處理與內部群組指派；此版納入 iPad 比例修正，內容版維持 `0.2.1`、983 題候選、15 個題圖與 17 題治理例外。Apple 顯示「正在測試」，未啟用外部測試、Beta App Review 或 App Review。
 - 已依 GitHub `macos-26` runner 現行映像將 CI latest iPhone 改為 iPhone 17 Pro；iPhone 16e 只存在較舊 runtime，不再與 `OS=latest` 組合造成找不到 simulator 的假失敗。課程閱讀 smoke 的冷啟動等待亦已加固。
 - 已將公開基線提交至 `agent/initial-public-baseline`（commit `eb0621d`），並建立 [Draft PR #1](https://github.com/playjackhsu-cpu/3Tcrane/pull/1)。首輪 GitHub Actions 已全數通過：Governance、12 項 unit／升級保留、Release build、iPhone UI smoke 與 iPad UI smoke；PR 維持 Draft，尚未合併至 `main`。
 - 已更新 [[Docs/07_發布與維運/TestFlight測試版交付清單]]，完整記錄候選版功能、QA 證據、Apple 上傳結果、內部測試治理與未完成名單條件；公開文件不含測試者信箱、Team ID、憑證或 Apple 內部識別碼。
@@ -63,11 +64,11 @@ updated: 2026-08-11
 - 17 題例外仍待個別處理：5 題須取得足以解決答案衝突的權威證據，4 題須在發版日重查修法生效狀態，8 題官方刪題只作歷史保留。
 - UI 已完成 iPhone／iPad 核心流程與直向畫面檢查；尚未完成 Dark／High Contrast、Dynamic Type、VoiceOver、橫向／多工與多款實機完整驗證。
 - 已確認指定 `origin` 的 GitHub SSH 驗證可用，並以不含任何專案內容的一次性空白 root commit 建立遠端 `main` 作為 PR base；首個公開內容 Draft PR #1 已建立且首輪 CI 全綠。PR 尚未合併，GitHub ruleset／security／Pages 尚未設定。
-- Internal TestFlight build 4 已上線；群組目前有 2 位測試人員。其餘 3 位指定聯絡人仍須具備 App Store Connect 帳號、正確姓／名與合格角色後，才能以最低必要權限完成邀請；10 人規劃仍有 5 個未指定名額。
+- Internal TestFlight build 5 已上線；群組目前有 2 位測試人員。其餘 3 位指定聯絡人仍須具備 App Store Connect 帳號、正確姓／名與合格角色後，才能以最低必要權限完成邀請；10 人規劃仍有 5 個未指定名額。
 
 ## 下一個可執行工作
 
-內容線下一步依 [[Docs/04_題庫與內容/OCR與逐題審查流程]] 處理 17 題例外、補足技術題的獨立公開來源、做解析編審與內容權利決策，再由 983 題候選產生可驗證的正式內容 release candidate；只有官方文字、題圖或衝突證據確實不清時才提出精確補拍清單。App 線先以 build 4 驗證首頁 17 題例外卡收合／展開、課程閱讀、題庫練習、錯題複習、正式模擬測驗與更新保留，收集 iPhone／iPad 實機回饋；取得 3 位待邀人員的正確姓、名與合格帳號後完成最低權限邀請。正式公開題庫仍須等待內容與權利 gate。
+內容線下一步依 [[Docs/04_題庫與內容/OCR與逐題審查流程]] 處理 17 題例外、補足技術題的獨立公開來源、做解析編審與內容權利決策，再由 983 題候選產生可驗證的正式內容 release candidate；只有官方文字、題圖或衝突證據確實不清時才提出精確補拍清單。App 線先以 build 5 驗證首頁 17 題例外卡收合／展開、課程閱讀、題庫練習、錯題複習、正式模擬測驗、更新保留與 iPad 比例，收集 iPhone／iPad 實機回饋；取得 3 位待邀人員的正確姓、名與合格帳號後完成最低權限邀請。正式公開題庫仍須等待內容與權利 gate。
 
 ## 不可遺忘
 

@@ -2,6 +2,7 @@
 
 ## 2026-08-11
 
+- 產生並稽核 0.1.0（build 5）App Store archive，確認 iPad 比例修正、內容版 `0.2.1`、983 題候選、15 個題圖與 17 題治理例外，且未含私有來源定位、原始 PDF、敏感路徑或憑證；Apple 上傳與處理完成後已加入既有內部群組，目前顯示「正在測試」。未建立外部測試，未送 Beta App Review 或 App Review。
 - 將首個公開基線提交至 `agent/initial-public-baseline`（commit `eb0621d`）並建立 Draft PR #1；首輪 GitHub Actions 的 Governance、12 項 unit／升級保留、Release build、iPhone UI smoke 與 iPad UI smoke 全數通過。PR 維持 Draft，尚未合併至 `main`。
 - 依 iPad 直向／橫向實機截圖調整分割導覽比例：sidebar 改為 240～280 pt、理想 260 pt，使用 balanced split view；側欄與首頁改為 inline title，hero 內文限制為 900 pt，避免大標題、過寬側欄與橫向內容拉伸。新增 iPad 側欄比例 UI gate，完整 iPad UI 回歸通過。
 - 修正 CI 的 iPhone simulator 假失敗：`iPhone 16e + OS=latest` 在 Xcode 26.6 latest runtime 不存在，依 GitHub `macos-26` runner 現行映像改為 `iPhone 17 Pro + OS=latest`；同時將課程冷啟動等待改為穩定的 10 秒上限，單項 iPad 測試連續通過兩次。

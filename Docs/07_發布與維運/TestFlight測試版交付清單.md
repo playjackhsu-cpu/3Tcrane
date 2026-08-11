@@ -13,7 +13,7 @@ updated: 2026-08-11
 | --- | --- |
 | App | 起重機考照通－三噸以上固定式起重機 |
 | Marketing version | `0.1.0` |
-| Build | `4` |
+| Build | `5` |
 | Bundle ID | `tw.tauruswinner.crane.study` |
 | 裝置 | iPhone、iPad |
 | 最低版本 | iOS 17.0 |
@@ -53,13 +53,13 @@ updated: 2026-08-11
 | Release archive | App Store 簽章與上傳成功 |
 | 安裝包敏感資料掃描 | 通過 |
 | App Store Connect binary | 已驗證；非豁免加密：否 |
-| Internal TestFlight | Build `0.1.0 (4)` 已指派內部群組，狀態為「正在測試」 |
+| Internal TestFlight | Build `0.1.0 (5)` 已指派內部群組，狀態為「正在測試」 |
 
 本機測試結果包與 archive 放在 Git 忽略的 `Artifacts/`／Xcode 測試輸出，不提交公開倉庫。
 
 ## Binary 與隱私稽核
 
-- `CFBundleShortVersionString=0.1.0`、`CFBundleVersion=4`。
+- `CFBundleShortVersionString=0.1.0`、`CFBundleVersion=5`。
 - `UIDeviceFamily` 同時包含 iPhone 與 iPad。
 - `ITSAppUsesNonExemptEncryption=false`；目前沒有自製加密或網路功能。
 - 主 App 已包含 `PrivacyInfo.xcprivacy`，目前宣告不追蹤、不收集資料、無 Required Reason API。
@@ -85,8 +85,8 @@ updated: 2026-08-11
 ## Apple 端執行結果
 
 - 已註冊明確 Bundle ID，並建立繁體中文 App Store Connect App record。
-- 已由 Xcode 自動管理 App Store 發行簽章，完成 `0.1.0 (4)` 上傳；Apple 已驗證並完成處理，簽章為發行模式且可接收 TestFlight 回報。
-- 已人工將 build 4 加入 `3Tcrane 內部測試｜10 人名額` 群組，目前顯示「正在測試」；群組保留 build 1～3 作為回歸比較。Apple 內部群組本身的系統上限為 100 人，名稱中的 10 人為本專案營運名額規劃。
+- 已由 Xcode 自動管理 App Store 發行簽章，完成 `0.1.0 (5)` 上傳；Apple 已驗證並完成處理，簽章為發行模式且可接收 TestFlight 回報。
+- 已人工將 build 5 加入 `3Tcrane 內部測試｜10 人名額` 群組，目前顯示「正在測試」；群組保留 build 1～4 作為回歸比較。Apple 內部群組本身的系統上限為 100 人，名稱中的 10 人為本專案營運名額規劃。
 - 已關閉不可逆的自動分發；後續 build 必須人工確認後加入群組。
 - 已保存測試內容與回饋信箱；目前群組有 2 位內部測試人員。
 - 其餘 3 位指定聯絡人仍須先具備具有姓、名與合格角色的 App Store Connect 帳號。取得正確資料後，應以「開發者」最低必要角色及僅此 App 的有限存取權新增，再加入本群組。
