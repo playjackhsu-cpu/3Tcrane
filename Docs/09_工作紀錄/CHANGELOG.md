@@ -2,6 +2,7 @@
 
 ## 2026-08-11
 
+- Owner 核准後，將 PR #1 轉為 Ready 並以 squash 合併至 `main`（`832e696`）；`Protect main` Ruleset 維持無 bypass 與五道必要檢查。啟用 GitHub Pages 的 Actions 發布來源並重跑首次因尚未啟用 Pages 而失敗的部署；第二次部署成功，首頁、隱私權政策與支援頁均以未登入 HTTP 200 驗證。App Store Connect 已保存正式支援 URL 與隱私權政策 URL，未選建置版本、未新增以供審查、未送出 App Review。
 - 完成 App Store 1.0 首發準備：建立繁體中文商店文案、96 bytes 關鍵字、宣傳文字、App Review 導覽、隱私／支援靜態頁與 GitHub Pages workflow；App Store Connect 已設定副標題、教育／參考分類、4+、不需登入、手動發布及不收集資料，價格維持 US$0.99／台灣 NT$30。未選正式建置、未按新增以供審查、未代填私密聯絡資料或接受付費合約。
 - 擷取並稽核 iPhone 6.5 吋 1284×2778 與 iPad 12.9 吋 2048×2732 商店截圖；排除顯示舊測試版號的設定頁，將課程學習、題庫測驗與學習記錄各 3 張上傳至 App Store Connect。兩種裝置均回讀為 3 張且由 Apple 自動保存；截圖原檔維持在 Git 忽略的 `Artifacts/`，未選建置版本或新增以供審查。
 - GitHub Pages workflow 的 checkout、configure-pages、upload-pages-artifact 與 deploy-pages 均以官方現行主要版本 commit SHA 固定，並以 `main`／`Site/**` 為唯一自動部署來源。

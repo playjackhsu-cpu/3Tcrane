@@ -55,7 +55,7 @@ updated: 2026-08-11
 - 已依 768×1024 直向與 1024×768 橫向實機截圖調整 iPad 比例：sidebar 使用 240～280 pt、理想 260 pt 的 balanced split view，側欄及首頁採 inline title，hero 內文限制為 900 pt；新增側欄比例 UI gate，避免後續回歸成過寬側欄或大標題版面。
 - 已完成 0.1.0（build 5）封裝、敏感資料稽核、Apple 上傳、處理與內部群組指派；此版納入 iPad 比例修正，內容版維持 `0.2.1`、983 題候選、15 個題圖與 17 題治理例外。Apple 顯示「正在測試」，未啟用外部測試、Beta App Review 或 App Review。
 - 已依 GitHub `macos-26` runner 現行映像將 CI latest iPhone 改為 iPhone 17 Pro；iPhone 16e 只存在較舊 runtime，不再與 `OS=latest` 組合造成找不到 simulator 的假失敗。課程閱讀 smoke 的冷啟動等待亦已加固。
-- 已將公開基線提交至 `agent/initial-public-baseline`（commit `eb0621d`），並建立 [Draft PR #1](https://github.com/playjackhsu-cpu/3Tcrane/pull/1)。首輪 GitHub Actions 已全數通過：Governance、12 項 unit／升級保留、Release build、iPhone UI smoke 與 iPad UI smoke；PR 維持 Draft，尚未合併至 `main`。
+- 已將公開基線透過 [PR #1](https://github.com/playjackhsu-cpu/3Tcrane/pull/1) 以 squash 方式合併至 `main`（commit `832e696`）。合併前 Governance、14 項 unit／升級保留、Release build、iPhone UI smoke 與 iPad UI smoke 均通過，且由 Owner 明示核准。
 - 已在 GitHub 啟用 Active `Protect main` Ruleset，目標為預設分支 `main`，無 bypass；禁止刪除與 force push、要求 linear history、PR、對話解決、分支保持最新，並將 `public-repository-gate`、`Unit tests`、`Release build`、`iPhone UI smoke test`、`iPad UI smoke test` 設為必要檢查。單人維護階段依既定治理維持 0 個必要核准，改以 CI 全綠與 Owner checklist 明示核准作 gate。
 - 已更新 [[Docs/07_發布與維運/TestFlight測試版交付清單]]，完整記錄候選版功能、QA 證據、Apple 上傳結果、內部測試治理與未完成名單條件；公開文件不含測試者信箱、Team ID、憑證或 Apple 內部識別碼。
 - 已完成暗色模式第一輪修正：8 組品牌語意色具備一致的 Light／Dark 動態值，頁面、側欄、導覽列、卡片、標題、次要文字與互動色會同步切換；主要文字、次要文字與互動藍色具有至少 4.5:1 自動對比 gate。14 項 unit tests、iPhone 7 項與 iPad 7 項完整 UI 回歸均 0 失敗，並保留暗色首頁截圖證據。
@@ -65,6 +65,7 @@ updated: 2026-08-11
 - 已擷取並逐張檢查 iPhone 6.5 吋 1284×2778 與 iPad 12.9 吋 2048×2732 上架候選截圖；前三張依「題庫測驗、課程學習、學習記錄」呈現，舊測試版號的設定頁不列入上傳候選。截圖保存在 Git 忽略的 `Artifacts/`，不進公開倉庫。
 - 已將稽核後的 3 張 iPhone 6.5 吋與 3 張 iPad 12.9／13 吋截圖上傳至 App Store Connect 1.0；兩種裝置均回讀為 3 張且由 Apple 自動保存。未上傳含舊測試版號的設定頁，亦未選建置版本或新增以供審查。
 - 已建立無追蹤的靜態隱私權政策與支援頁，以及只從 `main` 部署 `Site/` 的 GitHub Pages workflow；四個官方 Actions 均以其現行主要版本 commit SHA 固定，避免浮動 tag 供應鏈風險。
+- 已啟用 GitHub Pages 的 GitHub Actions 發布來源；第二次部署成功，並以未登入 HTTP 請求確認[首頁](https://playjackhsu-cpu.github.io/3Tcrane/)、[隱私權政策](https://playjackhsu-cpu.github.io/3Tcrane/privacy/)與[使用者支援](https://playjackhsu-cpu.github.io/3Tcrane/support/)均為 200。支援 URL 與隱私權政策 URL 已寫入 App Store Connect 並重新載入確認保存。
 - 本次上架準備提交前 QA 通過：14／14 unit／升級保留測試、無簽章 Universal Release build、iPhone UI 5 通過／2 項裝置條件跳過、iPad UI 6 通過／1 項裝置條件跳過；兩平台均為 0 失敗。
 
 ## 尚未完成
@@ -72,14 +73,14 @@ updated: 2026-08-11
 - 正式公開發行題庫尚未核准；1,000／1,000 題已完成官方來源第一輪資料審查，983 題目前只進入受控 Internal TestFlight，仍須通過內容權利、獨立技術來源、法規發行時點、解析編審與正式 App QA。目前可公開發行題數仍為 0，不把「內部完整測試」誤稱為「已核准發布」。
 - 17 題例外仍待個別處理：5 題須取得足以解決答案衝突的權威證據，4 題須在發版日重查修法生效狀態，8 題官方刪題只作歷史保留。
 - UI 已完成 iPhone／iPad 核心流程、iPad 比例與 Dark 模式的模擬器檢查；尚未完成 High Contrast、Dynamic Type、VoiceOver、橫向／多工與多款實機完整驗證。
-- 已確認指定 `origin` 的 GitHub SSH 驗證可用，並以不含任何專案內容的一次性空白 root commit 建立遠端 `main` 作為 PR base；首個公開內容 Draft PR #1 已建立且最新 CI 全綠。`Protect main` Ruleset 已啟用，PR 尚未合併；GitHub security 與 Pages 仍尚未設定。
+- 已確認指定 `origin` 的 GitHub SSH 驗證可用；首個公開內容 PR #1 已通過必要檢查並合併。`Protect main` Ruleset 持續啟用，GitHub Pages 已使用 Actions 部署並完成公開驗證。
 - Internal TestFlight build 5 已上線；群組目前有 2 位測試人員。其餘 3 位指定聯絡人仍須具備 App Store Connect 帳號、正確姓／名與合格角色後，才能以最低必要權限完成邀請；10 人規劃仍有 5 個未指定名額。
-- 隱私權政策／支援 URL 仍要等 Draft PR 合併、Pages 啟用並以未登入瀏覽器驗證後才可填入；截圖已完成上傳，但正式建置版本、App Review 聯絡資料與送審仍受既定 gate 約束。
+- 隱私權政策／支援 URL 與截圖均已完成 App Store Connect 設定；正式建置版本、App Review 聯絡資料、付費合約與送審仍受既定 gate 約束。
 - App Store Connect 雖顯示「具有第三方內容必要權利」，正式公開發行仍受內容權利 gate 約束；未取得書面權利證據前不得選正式建置版本或新增以供審查。
 
 ## 下一個可執行工作
 
-內容線下一步依 [[Docs/04_題庫與內容/OCR與逐題審查流程]] 處理 17 題例外、補足技術題的獨立公開來源、做解析編審與內容權利決策，再由 983 題候選產生可驗證的正式內容 release candidate；只有官方文字、題圖或衝突證據確實不清時才提出精確補拍清單。App 線先確認本次公開變更的 CI／Draft PR；PR 經 Owner 核准合併並驗證 GitHub Pages 後，再填支援／隱私 URL。正式公開題庫、建置版本選擇與 App Review 仍須等待內容權利、付費合約、聯絡資料及完整正式 QA gate。
+內容線下一步依 [[Docs/04_題庫與內容/OCR與逐題審查流程]] 處理 17 題例外、補足技術題的獨立公開來源、做解析編審與內容權利決策，再由 983 題候選產生可驗證的正式內容 release candidate；只有官方文字、題圖或衝突證據確實不清時才提出精確補拍清單。App 線已完成公開基線合併、Pages 與商店網址設定；正式公開題庫、建置版本選擇與 App Review 仍須等待內容權利、付費合約、聯絡資料及完整正式 QA gate。
 
 ## 不可遺忘
 
