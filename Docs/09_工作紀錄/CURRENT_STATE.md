@@ -71,6 +71,9 @@ updated: 2026-08-11
 - 已建立 `1.0.0`（build 6）本機 signed archive 與 App Store Connect 匯出 IPA；重新簽章後回讀 `get-task-allow=false`、`beta-reports-active=true`、`ITSAppUsesNonExemptEncryption=false`，內容與私有標記掃描通過。IPA SHA-256 為 `387e4760befc9c2a5605a2aed94b8ce6b5bc570af5224c07fa2c6f7f95996921`；archive／IPA 只保存在 Git 忽略的 `Artifacts/`。
 - `1.0.0`（build 6）已透過 Apple Transporter 上傳並完成處理，選入 App Store 版本後由 Owner 確認審查聯絡資料、App Privacy「不收集資料」聲明及第三方內容必要權利。版本已正式提交 Apple，App Store Connect 狀態為「正在等待審查」；核准後仍採手動發佈。
 
+- 已完成 [[Docs/09_工作紀錄/PROJECT_CLOSEOUT|專案結案總結報告]]，彙整產品範圍、983／17 題內容治理、架構與學習紀錄保留、雙平台 QA、簽章發行證據、Apple／GitHub 狀態、公開與私有邊界、歷程、待辦及還原順序；正式 PDF 保存於 Git 忽略的 `output/pdf/` 並納入私有 NAS 封存。
+- 已建立日期化的私有 NAS 結案封存：可直接瀏覽的完整工作區不含 `.git` 與可重建快取，另保存所有 Git refs 的 bundle、完整 `Artifacts/`、Xcode DerivedData、PDF 中間檔、build 6 發行成品、App Store 截圖、清冊、SHA-256 與清理紀錄。封存驗證成功後，只清理本機 3Tcrane 專用快取及模擬器，不影響正式 archive／IPA、原始題庫、文件或其他專案。
+
 ## 尚未完成
 
 - 17 題例外已完整納入 App 的可展開審查卡，但不參與一般抽題：8 題官方刪題只作歷史保留、5 題明顯答案／題意衝突顯示現行判定、4 題法規生效過渡題顯示過渡原因；官方或法規後續變更時再逐題重審。

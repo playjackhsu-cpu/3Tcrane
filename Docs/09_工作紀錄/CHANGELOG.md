@@ -2,6 +2,8 @@
 
 ## 2026-08-11
 
+- 完成專案結案總結報告及 6 頁正式 PDF，涵蓋產品與內容成果、資料保留架構、iPhone／iPad QA、簽章與 Apple 送審、GitHub 治理、公開／私有資料分層、兩日開發歷程、剩餘工作與還原指引。
+- 建立私有 NAS 日期化封存，保存可瀏覽工作區、Git bundle、原始題庫與 UI/UX 資源、全部 `Artifacts/`、Xcode DerivedData、最終 IPA／archive、App Store 截圖、檔案清冊、SHA-256 與清理紀錄；只在驗證成功後釋放本機專案專用快取與模擬器。
 - `1.0.0`（build 6）已透過 Apple Transporter 上傳並完成處理，選入 App Store 版本；經 Owner 明確確認後，發佈 App Privacy「不收集資料」聲明、沿用既有正式審查聯絡資料並確認第三方內容必要權利。版本已提交 Apple，狀態為「正在等待審查」，核准後採手動發佈；公開文件不記錄審查聯絡人的電話或信箱。
 - PR #6 的 Governance、unit／升級保留、Release build、iPhone UI smoke 與 iPad UI smoke 已全數通過；首次 unit runner 未載入任何 iOS simulator 的暫時性失敗經單項重跑後通過，未修改程式或降低測試 gate。
 - 依 Owner 指示將 App Store 首發價格改為免費；App Store Connect 回讀 175 個國家／地區價格均為 0.00，供應地維持台灣。版本欄位同步為 `1.0.0`，發布方式維持手動；未選正式建置、未按新增以供審查，也未代填私密聯絡資料。

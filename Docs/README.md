@@ -21,6 +21,7 @@ updated: 2026-08-11
 - 發布：[[Docs/07_發布與維運/Apple發布規劃]]、[[Docs/07_發布與維運/AppStore上架文案]]、[[Docs/07_發布與維運/TestFlight測試版交付清單]]
 - 決策：[[Docs/08_風險與決策/風險登錄表]]、[[Docs/08_風險與決策/ADR-001-離線題庫與獨立學習紀錄]]
 - 現況：[[Docs/09_工作紀錄/CURRENT_STATE]]、[[Docs/09_工作紀錄/CHANGELOG]]
+- 結案：[[Docs/09_工作紀錄/PROJECT_CLOSEOUT]]
 - 參考：[[Docs/10_參考/Taiwan_Wtsbot盤點與借鏡]]
 
 ## 現行產品基線
