@@ -12,6 +12,7 @@
 - [資料保存與 App 更新策略](Docs/02_系統架構/資料保存與App更新策略.md)
 - [GitHub 公開倉庫治理](Docs/00_專案治理/GitHub公開倉庫治理.md)
 - [Apple 發布規劃](Docs/07_發布與維運/Apple發布規劃.md)
+- [App Store 上架文案](Docs/07_發布與維運/AppStore上架文案.md)
 
 ## 公開倉庫警示
 

@@ -2,6 +2,10 @@
 
 ## 2026-08-11
 
+- 完成 App Store 1.0 首發準備：建立繁體中文商店文案、96 bytes 關鍵字、宣傳文字、App Review 導覽、隱私／支援靜態頁與 GitHub Pages workflow；App Store Connect 已設定副標題、教育／參考分類、4+、不需登入、手動發布及不收集資料，價格維持 US$0.99／台灣 NT$30。未選正式建置、未按新增以供審查、未代填私密聯絡資料或接受付費合約。
+- 擷取並稽核 iPhone 6.5 吋 1284×2778 與 iPad 12.9 吋 2048×2732 商店截圖；排除顯示舊測試版號的設定頁，候選前三張為題庫測驗、課程學習與學習記錄。截圖維持在 Git 忽略的 `Artifacts/`；Chrome 擴充功能尚未取得本機檔案 URL 權限，因此未完成外部上傳。
+- GitHub Pages workflow 的 checkout、configure-pages、upload-pages-artifact 與 deploy-pages 均以官方現行主要版本 commit SHA 固定，並以 `main`／`Site/**` 為唯一自動部署來源。
+- 本次提交前通過公開倉庫 gate、文件連結與 whitespace 檢查、14／14 unit／升級保留測試、無簽章 Universal Release build，以及 iPhone UI 5 通過／2 項裝置條件跳過、iPad UI 6 通過／1 項裝置條件跳過；兩平台均為 0 失敗。
 - 修正暗色模式的全域語意色：頁面背景、卡片邊界、主要／次要文字及互動色均加入 Dark 變體，排除深色卡片搭配深色文字與淺色導覽列搭配白字的低對比問題；新增 Light／Dark 4.5:1 對比單元測試與 iPhone／iPad 暗色首頁 UI gate。14 項 unit tests、iPhone 7 項及 iPad 7 項完整 UI 回歸皆 0 失敗；另建立不同 Bundle ID 的 QA App，避免覆蓋既有 TestFlight App 與學習紀錄，並於連接的 iPhone 11 與 iPad 完成安裝及 Dark Mode 前景啟動 smoke。
 - 建立並啟用 GitHub `Protect main` Ruleset：套用預設分支 `main`、無 bypass、禁止刪除與 force push、要求 linear history、PR、對話解決與最新分支，並要求 `public-repository-gate`、`Unit tests`、`Release build`、`iPhone UI smoke test`、`iPad UI smoke test` 五道檢查。Draft PR #1 最新 Governance 與 iOS CI workflow 均已完成且成功，PR 維持 Draft、未合併。
 - 產生並稽核 0.1.0（build 5）App Store archive，確認 iPad 比例修正、內容版 `0.2.1`、983 題候選、15 個題圖與 17 題治理例外，且未含私有來源定位、原始 PDF、敏感路徑或憑證；Apple 上傳與處理完成後已加入既有內部群組，目前顯示「正在測試」。未建立外部測試，未送 Beta App Review 或 App Review。

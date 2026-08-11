@@ -19,18 +19,19 @@ updated: 2026-08-10
 | Marketing version | `1.0.0` |
 | First build | `1`，後續單調遞增且不重用 |
 | 類別 | Education；次類別 Reference |
-| 價格 | 免費、無 IAP（MVP） |
+| 價格 | 美國基準 US$0.99；台灣價格點 NT$30；無 IAP |
 | 地區／語言 | 台灣、繁體中文首發 |
 | 年齡分級 | 4+ 候選，依正式內容問卷回讀為準 |
 | Copyright | `© 2026 TaurusWinner. All rights reserved.` 草案 |
 
 Bundle ID 是否可用要在 Apple Developer portal 實際註冊確認；Team ID、憑證與 profile 不寫入公開倉庫。
 
-## App Store 文案草案
+## App Store 文案
 
-- Subtitle：`題庫・解析・錯題與模擬測驗`
-- Promotional text：`離線整理課程、題庫、錯題與學習紀錄，協助你按自己的節奏準備考照。`
-- 關鍵字候選：`固定式起重機,三噸,起重機,考照,題庫,模擬測驗,錯題,職安`
+- Subtitle：`固定式起重機單一級技能檢定`
+- Promotional text：`固定式起重機操作單一級技能檢定複習工具：課程閱讀、逐題解析、錯題複習與模擬測驗。啟用 iOS 自動更新後，可隨新版 App 取得依官方最新公布題庫整理的內建內容，並保留裝置內的學習紀錄。`
+- 關鍵字：`固定式起重機,技能檢定,單一級,三噸,考照,題庫,模擬測驗,錯題,職安,吊掛`
+- 完整可貼用說明、Review notes 與字數檢核見 [[Docs/07_發布與維運/AppStore上架文案]]。
 - 說明必須避免宣稱官方 App、保證通過或取代法規／實務訓練。
 
 ## 隱私與網路
@@ -42,7 +43,7 @@ MVP 不登入、不收集、不傳送學習紀錄，也不含追蹤、廣告或�
 - Privacy：`https://playjackhsu-cpu.github.io/3Tcrane/privacy/`
 - Support：`https://playjackhsu-cpu.github.io/3Tcrane/support/`
 
-這些 URL 在 GitHub Pages 建立並實際可讀前都屬草案。Support 頁需有容易聯絡維護者的方式，不能只連回 Issues 並要求公開個資。
+公開頁原始檔位於 `Site/`，由 GitHub Pages workflow 在 `main` 更新後部署。這些 URL 在 workflow 合併、Pages 啟用並以未登入瀏覽器驗證前都屬草案。Support 頁提供不需登入即可閱讀的 FAQ，公開 Issues 僅供不含個資的一般技術回報；私人支援聯絡方式須由 Owner 決定，不得挪用 TestFlight 測試者資料。
 
 Apple 參考：[Manage app privacy](https://developer.apple.com/help/app-store-connect/manage-app-information/manage-app-privacy/)、[App Review Guidelines](https://developer.apple.com/app-store/review/guidelines/)。
 
@@ -76,4 +77,4 @@ Apple 參考：[Manage app privacy](https://developer.apple.com/help/app-store-c
 
 ## Owner 才能完成但不阻塞開發的事項
 
-Apple 協議／稅務／銀行、App record、Bundle ID、簽章憑證、正式 privacy/support 網站、內容權利最終聲明、TestFlight／App Review 操作與手動發布核准。
+Apple Paid Applications Agreement／稅務／銀行、正式 privacy/support 網站驗證、內容權利最終聲明、App Review 私密聯絡資料、正式送審操作與手動發布核准。App record、Bundle ID 與 TestFlight 已建立；憑證與簽章資料仍不得進公開倉庫。

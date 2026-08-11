@@ -18,7 +18,7 @@ updated: 2026-08-11
 - 題庫：[[Docs/04_題庫與內容/題庫資料規格]]、[[Docs/04_題庫與內容/OCR與逐題審查流程]]
 - 開發：[[Docs/05_iOS開發/開發環境盤點]]、[[Docs/05_iOS開發/開發流程與CI_PR]]、[[Docs/05_iOS開發/開發計劃書]]
 - 測試：[[Docs/06_QA與測試/QA測試計劃]]
-- 發布：[[Docs/07_發布與維運/Apple發布規劃]]、[[Docs/07_發布與維運/TestFlight測試版交付清單]]
+- 發布：[[Docs/07_發布與維運/Apple發布規劃]]、[[Docs/07_發布與維運/AppStore上架文案]]、[[Docs/07_發布與維運/TestFlight測試版交付清單]]
 - 決策：[[Docs/08_風險與決策/風險登錄表]]、[[Docs/08_風險與決策/ADR-001-離線題庫與獨立學習紀錄]]
 - 現況：[[Docs/09_工作紀錄/CURRENT_STATE]]、[[Docs/09_工作紀錄/CHANGELOG]]
 - 參考：[[Docs/10_參考/Taiwan_Wtsbot盤點與借鏡]]
