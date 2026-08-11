@@ -19,7 +19,7 @@ updated: 2026-08-10
 | Marketing version | `1.0.0` |
 | First build | `1`，後續單調遞增且不重用 |
 | 類別 | Education；次類別 Reference |
-| 價格 | 美國基準 US$0.99；台灣價格點 NT$30；無 IAP |
+| 價格 | 免費；無 IAP、訂閱或付費牆 |
 | 地區／語言 | 台灣、繁體中文首發 |
 | 年齡分級 | 4+ 候選，依正式內容問卷回讀為準 |
 | Copyright | `© 2026 TaurusWinner. All rights reserved.` 草案 |
@@ -77,4 +77,4 @@ Apple 參考：[Manage app privacy](https://developer.apple.com/help/app-store-c
 
 ## Owner 才能完成但不阻塞開發的事項
 
-Apple Paid Applications Agreement／稅務／銀行、正式 privacy/support 網站驗證、內容權利最終聲明、App Review 私密聯絡資料、正式送審操作與手動發布核准。App record、Bundle ID 與 TestFlight 已建立；憑證與簽章資料仍不得進公開倉庫。
+正式 privacy/support 網站驗證、Content Rights 最終確認、App Review 私密聯絡資料、正式送審操作與手動發布核准。App record、Bundle ID 與 TestFlight 已建立；首版已改為免費且沒有 IAP，因此 Paid Applications Agreement、稅務與銀行資料不再是首版送審 gate。憑證與簽章資料仍不得進公開倉庫。

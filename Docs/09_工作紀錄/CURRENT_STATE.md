@@ -33,7 +33,7 @@ updated: 2026-08-11
 - 已建立 `ThreeTCraneStudy.xcodeproj` 與共享 scheme，包含 Universal iPhone／iPad App、unit test 及 UI test 三個 target。
 - 已建立 SwiftUI Universal App：iPhone 採五分頁、iPad 採常駐側欄／detail 導覽；首頁、課程、測驗、紀錄、設定皆可進入，視覺已依 2026-08-10 UI/UX 參考板重整首頁英雄區、功能入口、進度摘要與卡片層級。
 - 已重新對齊 Taiwan_Wtsbot 的學習分流：課程學習採固定順序逐題閱讀，直接呈現題目、答案、解析、另解與來源，不要求先作答且不污染作答統計；題庫練習才是選答後立即判定；錯題複習要求重新作答；模擬測驗則直到交卷才揭露答案。
-- 公開／一般開發組態僅載入 12 題合成 fixture；Internal TestFlight 專用組態則以受控建置參數嵌入 983 題私有候選題庫與 15 個題圖資產。私有題庫、產生物與來源定位均維持 Git 忽略，不進公開倉庫。
+- 題庫建置已分為三層：12 題合成 fixture 只供測試與正式內容缺席時的安全退路；正式發行組態載入公開治理後的 983 題 release package、17 題例外與 15 個題圖；Internal TestFlight 仍可用受控參數載入私有候選包。正式 Release bundle 會移除合成 fixture，私有來源定位、原始 PDF 與內部產生物均不進公開倉庫或發行包。
 - bundle 題庫與 SwiftData 學習紀錄實體分離，永久 store 位於 Application Support，題目進度、收藏、筆記、模擬考與 App 狀態皆以穩定 ID 保存。
 - 已完成更新保留測試：同一永久 store 經 A→B 重新開啟後，五類學習紀錄全部保留；題目下架後孤兒進度仍可讀取。
 - 本機 Debug／Release 無簽章建置可執行；4 個 unit tests、iPhone UI smoke 與 iPad UI smoke 已各自通過。
@@ -55,31 +55,32 @@ updated: 2026-08-11
 - 已依 768×1024 直向與 1024×768 橫向實機截圖調整 iPad 比例：sidebar 使用 240～280 pt、理想 260 pt 的 balanced split view，側欄及首頁採 inline title，hero 內文限制為 900 pt；新增側欄比例 UI gate，避免後續回歸成過寬側欄或大標題版面。
 - 已完成 0.1.0（build 5）封裝、敏感資料稽核、Apple 上傳、處理與內部群組指派；此版納入 iPad 比例修正，內容版維持 `0.2.1`、983 題候選、15 個題圖與 17 題治理例外。Apple 顯示「正在測試」，未啟用外部測試、Beta App Review 或 App Review。
 - 已依 GitHub `macos-26` runner 現行映像將 CI latest iPhone 改為 iPhone 17 Pro；iPhone 16e 只存在較舊 runtime，不再與 `OS=latest` 組合造成找不到 simulator 的假失敗。課程閱讀 smoke 的冷啟動等待亦已加固。
-- 已將公開基線提交至 `agent/initial-public-baseline`（commit `eb0621d`），並建立 [Draft PR #1](https://github.com/playjackhsu-cpu/3Tcrane/pull/1)。首輪 GitHub Actions 已全數通過：Governance、12 項 unit／升級保留、Release build、iPhone UI smoke 與 iPad UI smoke；PR 維持 Draft，尚未合併至 `main`。
+- 已將公開基線提交至 `agent/initial-public-baseline`（commit `eb0621d`），[PR #1](https://github.com/playjackhsu-cpu/3Tcrane/pull/1) 的 Governance、unit／升級保留、Release build、iPhone UI smoke 與 iPad UI smoke 全數通過後，已由 Owner 核准合併至 `main`（merge commit `832e696`）。
 - 已在 GitHub 啟用 Active `Protect main` Ruleset，目標為預設分支 `main`，無 bypass；禁止刪除與 force push、要求 linear history、PR、對話解決、分支保持最新，並將 `public-repository-gate`、`Unit tests`、`Release build`、`iPhone UI smoke test`、`iPad UI smoke test` 設為必要檢查。單人維護階段依既定治理維持 0 個必要核准，改以 CI 全綠與 Owner checklist 明示核准作 gate。
 - 已更新 [[Docs/07_發布與維運/TestFlight測試版交付清單]]，完整記錄候選版功能、QA 證據、Apple 上傳結果、內部測試治理與未完成名單條件；公開文件不含測試者信箱、Team ID、憑證或 Apple 內部識別碼。
 - 已完成暗色模式第一輪修正：8 組品牌語意色具備一致的 Light／Dark 動態值，頁面、側欄、導覽列、卡片、標題、次要文字與互動色會同步切換；主要文字、次要文字與互動藍色具有至少 4.5:1 自動對比 gate。14 項 unit tests、iPhone 7 項與 iPad 7 項完整 UI 回歸均 0 失敗，並保留暗色首頁截圖證據。
 - 已為連接實機建立不同 Bundle ID 的合成題庫 QA App，避免覆蓋 Internal TestFlight App 或既有學習紀錄；iPhone 11 與 iPad 均已完成安裝及 Dark Mode 前景啟動 smoke。QA App、裝置識別資訊、簽章與測試產物均未進入公開 Git。
 - 已完成 App Store 首發繁體中文文案：副標題「固定式起重機單一級技能檢定」、教育／參考分類、96 bytes 關鍵字、宣傳文字、完整說明、App Review 導覽與獨立工具聲明；「自動更新」明確限定為隨新版 App 取得重新整理的內建內容，不宣稱 App 內即時同步題庫。
-- App Store Connect 已設定 US$0.99 基準價格、台灣 NT$30、台灣供應、4+ 年齡分級、不需登入、手動發布及「不收集資料」問卷；未按下 App Review、未選正式建置版本，也未代為接受付費合約或填入私密審查聯絡資料。
+- App Store Connect 首發價格已依 Owner 指示改為免費：175 個國家／地區價格均為 0.00，供應地仍維持台灣；並已設定 4+ 年齡分級、不需登入、手動發布及「不收集資料」問卷。版本欄位已同步為 `1.0.0`；未按下 App Review、未選正式建置版本，也未代填私密審查聯絡資料。
 - 已擷取並逐張檢查 iPhone 6.5 吋 1284×2778 與 iPad 12.9 吋 2048×2732 上架候選截圖；前三張依「題庫測驗、課程學習、學習記錄」呈現，舊測試版號的設定頁不列入上傳候選。截圖保存在 Git 忽略的 `Artifacts/`，不進公開倉庫。
 - 已將稽核後的 3 張 iPhone 6.5 吋與 3 張 iPad 12.9／13 吋截圖上傳至 App Store Connect 1.0；兩種裝置均回讀為 3 張且由 Apple 自動保存。未上傳含舊測試版號的設定頁，亦未選建置版本或新增以供審查。
 - 已建立無追蹤的靜態隱私權政策與支援頁，以及只從 `main` 部署 `Site/` 的 GitHub Pages workflow；四個官方 Actions 均以其現行主要版本 commit SHA 固定，避免浮動 tag 供應鏈風險。
-- 本次上架準備提交前 QA 通過：14／14 unit／升級保留測試、無簽章 Universal Release build、iPhone UI 5 通過／2 項裝置條件跳過、iPad UI 6 通過／1 項裝置條件跳過；兩平台均為 0 失敗。
+- GitHub Pages 已以 workflow 模式啟用並完成首次成功部署；公開隱私權政策與支援頁均以未登入 HTTP 請求回讀為 200。
+- 已建立 App Store 正式題庫 release candidate：內容版 `0.2.1`，983 題一般抽題、17 題治理例外（8／5／4）與 15 個題圖；每題保留公開來源及官方參考答案審查狀態，公開包移除私有頁碼、掃描來源與內部路徑，並加入技能檢定中心政府網站資料開放宣告之顯名與授權連結。發行包 SHA-256 為 `7399af027135ea462811d55bdc3f91dccefaf967dca7b92065aea7cfbcaaed15`。
+- App Store `1.0.0`（build 6）發行候選 QA 通過：14／14 unit／升級保留測試、iPhone UI 5 通過／2 項裝置條件跳過、iPad UI 6 通過／1 項裝置條件跳過、iPhone／iPad Release build 均成功，兩平台 0 失敗。正式 bundle 回讀為版本 `1.0.0`、build `6`、983 題、17 題例外、15 個題圖，且只含正式題庫 JSON、不含合成或私有題庫。
 
 ## 尚未完成
 
-- 正式公開發行題庫尚未核准；1,000／1,000 題已完成官方來源第一輪資料審查，983 題目前只進入受控 Internal TestFlight，仍須通過內容權利、獨立技術來源、法規發行時點、解析編審與正式 App QA。目前可公開發行題數仍為 0，不把「內部完整測試」誤稱為「已核准發布」。
-- 17 題例外仍待個別處理：5 題須取得足以解決答案衝突的權威證據，4 題須在發版日重查修法生效狀態，8 題官方刪題只作歷史保留。
+- 983 題正式 release candidate 已完成公開包、資料授權評估與本機正式 App QA；正式送審前仍需 Owner 回讀非背書聲明、授權顯名及特別權利排除條件，並在 App Store Connect 完成 Content Rights 最終聲明。此 gate 是送審法律／權利確認，不再阻塞程式與 CI／PR。
+- 17 題例外已完整納入 App 的可展開審查卡，但不參與一般抽題：8 題官方刪題只作歷史保留、5 題明顯答案／題意衝突顯示現行判定、4 題法規生效過渡題顯示過渡原因；官方或法規後續變更時再逐題重審。
 - UI 已完成 iPhone／iPad 核心流程、iPad 比例與 Dark 模式的模擬器檢查；尚未完成 High Contrast、Dynamic Type、VoiceOver、橫向／多工與多款實機完整驗證。
-- 已確認指定 `origin` 的 GitHub SSH 驗證可用，並以不含任何專案內容的一次性空白 root commit 建立遠端 `main` 作為 PR base；首個公開內容 Draft PR #1 已建立且最新 CI 全綠。`Protect main` Ruleset 已啟用，PR 尚未合併；GitHub security 與 Pages 仍尚未設定。
+- 已確認指定 `origin` 的 GitHub SSH 驗證可用；PR #1 已合併至 `main`，`Protect main` Ruleset 與五道必要檢查維持啟用，GitHub Pages 已完成部署。GitHub security 的額外選配項目仍可後續強化，但不影響目前 PR gate。
 - Internal TestFlight build 5 已上線；群組目前有 2 位測試人員。其餘 3 位指定聯絡人仍須具備 App Store Connect 帳號、正確姓／名與合格角色後，才能以最低必要權限完成邀請；10 人規劃仍有 5 個未指定名額。
-- 隱私權政策／支援 URL 仍要等 Draft PR 合併、Pages 啟用並以未登入瀏覽器驗證後才可填入；截圖已完成上傳，但正式建置版本、App Review 聯絡資料與送審仍受既定 gate 約束。
-- App Store Connect 雖顯示「具有第三方內容必要權利」，正式公開發行仍受內容權利 gate 約束；未取得書面權利證據前不得選正式建置版本或新增以供審查。
+- 隱私權政策／支援 URL 已部署並可公開讀取，截圖亦已完成上傳；仍未完成的 Apple gate 為正式 signed archive 上傳與選版、App Review 私密聯絡資料、App Privacy 最終發布、Content Rights 最終確認及「新增以供審查」。
 
 ## 下一個可執行工作
 
-內容線下一步依 [[Docs/04_題庫與內容/OCR與逐題審查流程]] 處理 17 題例外、補足技術題的獨立公開來源、做解析編審與內容權利決策，再由 983 題候選產生可驗證的正式內容 release candidate；只有官方文字、題圖或衝突證據確實不清時才提出精確補拍清單。App 線先確認本次公開變更的 CI／Draft PR；PR 經 Owner 核准合併並驗證 GitHub Pages 後，再填支援／隱私 URL。正式公開題庫、建置版本選擇與 App Review 仍須等待內容權利、付費合約、聯絡資料及完整正式 QA gate。
+將 `1.0.0`（build 6）正式題庫與發行治理變更提交草稿 PR，等待五道必要檢查全綠及 Owner 合併核准。之後建立正式 signed archive；Owner 完成 Content Rights、App Privacy 與私密審查聯絡資料確認後，才上傳／選取 build 並按下「新增以供審查」。首版已免費，沒有 Paid Applications Agreement、銀行或稅務 gate。
 
 ## 不可遺忘
 

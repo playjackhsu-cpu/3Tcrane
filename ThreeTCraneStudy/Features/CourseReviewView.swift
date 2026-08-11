@@ -340,6 +340,11 @@ private struct CourseQuestionCard: View {
                         .font(.caption)
                         .foregroundStyle(.secondary)
                 }
+                if question.accuracyStatus == "official-reference-reviewed" {
+                    Text("官方參考答案已完成題文與明顯衝突檢查；不作為正式測試答案依據。")
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                }
             }
             .padding(15)
             .frame(maxWidth: .infinity, alignment: .leading)

@@ -42,8 +42,39 @@ QUESTION_KEYS = {
     "imageAccessibilityLabel",
     "optionImageResources",
 }
-ACCURACY = {"unchecked", "checked", "needs-review", "deprecated"}
+ACCURACY = {"unchecked", "checked", "official-reference-reviewed", "needs-review", "deprecated"}
 RIGHTS = {"cleared", "official-open-data", "public-domain", "synthetic"}
+PACKAGE_KEYS = {
+    "schemaVersion",
+    "contentVersion",
+    "generatedAt",
+    "sourceSystem",
+    "license",
+    "isSynthetic",
+    "subjects",
+    "chapters",
+    "questions",
+    "reviewExceptions",
+}
+REVIEW_EXCEPTION_KEYS = {
+    "id",
+    "publicCode",
+    "category",
+    "subjectTitle",
+    "chapterTitle",
+    "prompt",
+    "officialPrintedAnswer",
+    "reviewedAnswer",
+    "reason",
+    "publicSource",
+    "publicSourceUrl",
+    "publicSourceCheckedAt",
+}
+REVIEW_EXCEPTION_CATEGORIES = {
+    "official-deleted",
+    "hard-answer-conflict",
+    "regulatory-transition-hold",
+}
 
 
 def require(condition: bool, message: str, errors: list[str]) -> None:
@@ -59,6 +90,7 @@ def validate(path: Path) -> list[str]:
         return [f"{path}: invalid JSON: {exc}"]
 
     prefix = str(path.relative_to(ROOT))
+    require(not set(payload).difference(PACKAGE_KEYS), f"{prefix}: unexpected package keys", errors)
     require(payload.get("schemaVersion") == 1, f"{prefix}: schemaVersion must be 1", errors)
     require(bool(SEMVER.fullmatch(str(payload.get("contentVersion", "")))), f"{prefix}: invalid contentVersion", errors)
 
@@ -137,6 +169,63 @@ def validate(path: Path) -> list[str]:
             f"{label}: invalid optionImageResources",
             errors,
         )
+
+    license_info = payload.get("license")
+    if path.parent.name == "Releases":
+        require(isinstance(license_info, dict), f"{prefix}: release license attribution required", errors)
+        if isinstance(license_info, dict):
+            require(
+                set(license_info) == {"name", "url", "attribution", "checkedAt"},
+                f"{prefix}: invalid license fields",
+                errors,
+            )
+            require(
+                str(license_info.get("url", "")).startswith("https://"),
+                f"{prefix}: license URL must be HTTPS",
+                errors,
+            )
+            require(
+                all(question.get("rightsStatus") != "synthetic" for question in questions if isinstance(question, dict)),
+                f"{prefix}: formal release cannot contain synthetic rights",
+                errors,
+            )
+
+    review_exceptions = payload.get("reviewExceptions", [])
+    require(isinstance(review_exceptions, list), f"{prefix}: reviewExceptions must be an array", errors)
+    if isinstance(review_exceptions, list):
+        exception_ids: set[str] = set()
+        for index, item in enumerate(review_exceptions):
+            label = f"{prefix}: reviewExceptions[{index}]"
+            if not isinstance(item, dict):
+                errors.append(f"{label}: must be an object")
+                continue
+            require(set(item) == REVIEW_EXCEPTION_KEYS, f"{label}: invalid fields", errors)
+            exception_id = item.get("id")
+            require(
+                isinstance(exception_id, str) and bool(STABLE_ID.fullmatch(exception_id)),
+                f"{label}: invalid stable id",
+                errors,
+            )
+            require(exception_id not in exception_ids, f"{label}: duplicate id {exception_id}", errors)
+            require(exception_id not in question_ids, f"{label}: active question cannot be an exception", errors)
+            exception_ids.add(exception_id)
+            require(
+                item.get("category") in REVIEW_EXCEPTION_CATEGORIES,
+                f"{label}: invalid category",
+                errors,
+            )
+            for key in REVIEW_EXCEPTION_KEYS.difference({"id", "category"}):
+                require(
+                    isinstance(item.get(key), str) and bool(item[key].strip()),
+                    f"{label}: {key} required",
+                    errors,
+                )
+            parsed = urlparse(str(item.get("publicSourceUrl", "")))
+            require(
+                parsed.scheme == "https" and bool(parsed.netloc),
+                f"{label}: publicSourceUrl must be HTTPS",
+                errors,
+            )
 
     return errors
 

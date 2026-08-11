@@ -5,11 +5,23 @@ struct QuestionBankPackage: Codable, Equatable {
     let contentVersion: String
     let generatedAt: String?
     let sourceSystem: String?
+    let license: ContentLicense?
     let isSynthetic: Bool?
     let subjects: [QuestionSubject]
     let chapters: [QuestionChapter]
     let questions: [StudyQuestion]
     let reviewExceptions: [ReviewException]?
+}
+
+struct ContentLicense: Codable, Equatable {
+    let name: String
+    let url: String
+    let attribution: String
+    let checkedAt: String
+
+    var licenseURL: URL? {
+        URL(string: url)
+    }
 }
 
 struct ReviewException: Codable, Identifiable, Equatable {

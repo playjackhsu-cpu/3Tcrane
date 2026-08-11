@@ -18,8 +18,7 @@ updated: 2026-08-11
 | 主要類別 | 教育 | 與學習用途一致 |
 | 次要類別 | 參考 | 題庫與法規參考 |
 | 首發地區 | 台灣 | 只提供繁體中文 |
-| 美國基準價格 | US$0.99 | 已建立價格時程 |
-| 台灣售價 | NT$30 | Apple 依價格點換算 |
+| 價格 | 免費 | App Store Connect 175 個國家／地區價格均為 0.00；首發供應地仍為台灣 |
 | Copyright | © 2026 TaurusWinner. All rights reserved. | 草案；送審前由 Owner 確認權利主體 |
 | 發布方式 | 手動發布 | App Review 通過後仍需 Owner 核准 |
 
@@ -94,13 +93,12 @@ URL 只能在 GitHub Pages workflow 合併、部署且以未登入瀏覽器驗�
 
 - 不寫「官方 App」、「官方授權」或「保證通過」。
 - 不寫「即時同步官方題庫」或「App 內自動下載題庫」。
-- 不把 983 題 Internal TestFlight 候選內容描述為已取得正式公開發行權。
+- 不把 `official-reference-reviewed` 描述為官方認證、正式測試答案或逐題獨立技術驗證。
 - 不宣稱 App 能取代訓練、證照、實機操作、安全程序或主管機關公告。
 
 ## 送審前 Owner gate
 
-1. 完成 Paid Applications Agreement、稅務與銀行資料；這些是法律及財務行為，不由自動化代為同意。
-2. 書面確認正式發行題庫及題圖的重製／散布權，並保留證據；未完成時 Content Rights 不得勾選為已具權利。
-3. 以正式 release candidate binary 重做內容、隱私、年齡分級、升級保留、iPhone／iPad 與無障礙 QA。
-4. 提供 App Review 私密聯絡人姓名、電話與 Email。
-5. 明確核准「加入以供審查」及 App Review 通過後的手動發布。
+1. 依 [[Docs/04_題庫與內容/官方題庫授權評估]] 回讀顯名、非背書與特別權利排除條件，再由 Owner 完成 App Store Content Rights 最終確認。
+2. 以正式 release candidate binary 重做內容、隱私、年齡分級、升級保留、iPhone／iPad 與無障礙 QA。
+3. 提供 App Review 私密聯絡人姓名、電話與 Email。
+4. 明確核准「加入以供審查」及 App Review 通過後的手動發布。

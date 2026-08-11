@@ -384,6 +384,11 @@ private struct AnswerExplanationCard: View {
                     Label(question.publicSource, systemImage: "arrow.up.right.square")
                 }
             }
+            if question.accuracyStatus == "official-reference-reviewed" {
+                Text("官方參考答案已完成題文與明顯衝突檢查；不作為正式測試答案依據。")
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+            }
         }
             .padding()
             .background(Color(uiColor: .systemBackground), in: RoundedRectangle(cornerRadius: 18))
