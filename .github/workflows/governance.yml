@@ -1,0 +1,25 @@
+name: Governance
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  public-repository-gate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          fetch-depth: 0
+      - name: Check public repository boundary
+        run: bash Scripts/ci/check_public_repo.sh
+      - name: Validate question bank fixtures and releases
+        run: python3 Scripts/ci/validate_question_bank.py
+      - name: Check Markdown and Obsidian links
+        run: python3 Scripts/ci/check_markdown_links.py
+      - name: Check whitespace
+        run: git show --check --oneline --no-renames HEAD

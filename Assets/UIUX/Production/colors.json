@@ -1,0 +1,87 @@
+{
+  "project": "三噸以上固定式起重機考照學習系統",
+  "platform": "iOS",
+  "colors": {
+    "primaryBlue": {
+      "hex": "#1E6BFF",
+      "rgb": [
+        30,
+        107,
+        255
+      ],
+      "usage": "主要按鈕、選取狀態、進度"
+    },
+    "supportBlue": {
+      "hex": "#4DA3FF",
+      "rgb": [
+        77,
+        163,
+        255
+      ],
+      "usage": "圖表、次要資訊、漸層"
+    },
+    "accentOrange": {
+      "hex": "#FF8A00",
+      "rgb": [
+        255,
+        138,
+        0
+      ],
+      "usage": "重點、提醒、測驗題庫"
+    },
+    "successGreen": {
+      "hex": "#22C55E",
+      "rgb": [
+        34,
+        197,
+        94
+      ],
+      "usage": "正確、通過、完成狀態"
+    },
+    "neutralDark": {
+      "hex": "#1F2937",
+      "rgb": [
+        31,
+        41,
+        55
+      ],
+      "usage": "主要文字、標題"
+    },
+    "neutralGray": {
+      "hex": "#6B7280",
+      "rgb": [
+        107,
+        114,
+        128
+      ],
+      "usage": "次要文字、說明"
+    },
+    "backgroundGray": {
+      "hex": "#F3F6FA",
+      "rgb": [
+        243,
+        246,
+        250
+      ],
+      "usage": "頁面背景、區塊底色"
+    },
+    "white": {
+      "hex": "#FFFFFF",
+      "rgb": [
+        255,
+        255,
+        255
+      ],
+      "usage": "卡片與內容底色"
+    },
+    "border": {
+      "hex": "#E5EAF1",
+      "rgb": [
+        229,
+        234,
+        241
+      ],
+      "usage": "分隔線與卡片外框"
+    }
+  }
+}

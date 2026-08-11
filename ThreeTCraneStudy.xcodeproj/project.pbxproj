@@ -1,0 +1,232 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		B00000000000000000000001 /* ThreeTCraneStudyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00000000000000000000001 /* ThreeTCraneStudyApp.swift */; };
+		B00000000000000000000002 /* AppShell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00000000000000000000002 /* AppShell.swift */; };
+		B00000000000000000000003 /* QuestionModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00000000000000000000003 /* QuestionModels.swift */; };
+		B00000000000000000000004 /* BundleQuestionRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00000000000000000000004 /* BundleQuestionRepository.swift */; };
+		B00000000000000000000005 /* LearningModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00000000000000000000005 /* LearningModels.swift */; };
+		B00000000000000000000006 /* LearningPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00000000000000000000006 /* LearningPersistence.swift */; };
+		B00000000000000000000007 /* Components.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00000000000000000000007 /* Components.swift */; };
+		B00000000000000000000008 /* MainFeatures.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00000000000000000000008 /* MainFeatures.swift */; };
+		B00000000000000000000009 /* PracticeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00000000000000000000009 /* PracticeView.swift */; };
+		B0000000000000000000000A /* ColorTokens.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0000000000000000000000A /* ColorTokens.swift */; };
+		B00000000000000000000010 /* TestHubView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00000000000000000000010 /* TestHubView.swift */; };
+		B00000000000000000000011 /* ExamView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00000000000000000000011 /* ExamView.swift */; };
+		B00000000000000000000012 /* CourseReviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00000000000000000000012 /* CourseReviewView.swift */; };
+		B0000000000000000000000B /* CraneLearningAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A0000000000000000000000B /* CraneLearningAssets.xcassets */; };
+		B0000000000000000000000C /* question-bank.synthetic.json in Resources */ = {isa = PBXBuildFile; fileRef = A0000000000000000000000C /* question-bank.synthetic.json */; };
+		B0000000000000000000000D /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = A0000000000000000000000D /* PrivacyInfo.xcprivacy */; };
+		B00000000000000000000101 /* QuestionRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00000000000000000000101 /* QuestionRepositoryTests.swift */; };
+		B00000000000000000000102 /* LearningPersistenceUpgradeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00000000000000000000102 /* LearningPersistenceUpgradeTests.swift */; };
+		B00000000000000000000103 /* question-bank.synthetic.json in Resources */ = {isa = PBXBuildFile; fileRef = A0000000000000000000000C /* question-bank.synthetic.json */; };
+		B00000000000000000000201 /* NavigationSmokeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00000000000000000000201 /* NavigationSmokeTests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		C00000000000000000000101 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E00000000000000000000001 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D00000000000000000000001;
+			remoteInfo = ThreeTCraneStudy;
+		};
+		C00000000000000000000201 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E00000000000000000000001 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D00000000000000000000001;
+			remoteInfo = ThreeTCraneStudy;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		A00000000000000000000001 /* ThreeTCraneStudyApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreeTCraneStudyApp.swift; sourceTree = "<group>"; };
+		A00000000000000000000002 /* AppShell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppShell.swift; sourceTree = "<group>"; };
+		A00000000000000000000003 /* QuestionModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionModels.swift; sourceTree = "<group>"; };
+		A00000000000000000000004 /* BundleQuestionRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BundleQuestionRepository.swift; sourceTree = "<group>"; };
+		A00000000000000000000005 /* LearningModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LearningModels.swift; sourceTree = "<group>"; };
+		A00000000000000000000006 /* LearningPersistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LearningPersistence.swift; sourceTree = "<group>"; };
+		A00000000000000000000007 /* Components.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Components.swift; sourceTree = "<group>"; };
+		A00000000000000000000008 /* MainFeatures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainFeatures.swift; sourceTree = "<group>"; };
+		A00000000000000000000009 /* PracticeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeView.swift; sourceTree = "<group>"; };
+		A0000000000000000000000A /* ColorTokens.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ColorTokens.swift; path = Assets/UIUX/Production/ColorTokens.swift; sourceTree = SOURCE_ROOT; };
+		A00000000000000000000010 /* TestHubView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestHubView.swift; sourceTree = "<group>"; };
+		A00000000000000000000011 /* ExamView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExamView.swift; sourceTree = "<group>"; };
+		A00000000000000000000012 /* CourseReviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseReviewView.swift; sourceTree = "<group>"; };
+		A0000000000000000000000B /* CraneLearningAssets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = CraneLearningAssets.xcassets; path = Assets/UIUX/Production/CraneLearningAssets.xcassets; sourceTree = SOURCE_ROOT; };
+		A0000000000000000000000C /* question-bank.synthetic.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = question-bank.synthetic.json; path = Content/Fixtures/question-bank.synthetic.json; sourceTree = SOURCE_ROOT; };
+		A0000000000000000000000D /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		A0000000000000000000000E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A00000000000000000000101 /* QuestionRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionRepositoryTests.swift; sourceTree = "<group>"; };
+		A00000000000000000000102 /* LearningPersistenceUpgradeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LearningPersistenceUpgradeTests.swift; sourceTree = "<group>"; };
+		A00000000000000000000201 /* NavigationSmokeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationSmokeTests.swift; sourceTree = "<group>"; };
+		A00000000000000000000F01 /* ThreeTCraneStudy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ThreeTCraneStudy.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A00000000000000000000F02 /* ThreeTCraneStudyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ThreeTCraneStudyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		A00000000000000000000F03 /* ThreeTCraneStudyUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ThreeTCraneStudyUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		F00000000000000000000001 /* Frameworks */ = {isa = PBXFrameworksBuildPhase; buildActionMask = 2147483647; files = (); runOnlyForDeploymentPostprocessing = 0; };
+		F00000000000000000000101 /* Frameworks */ = {isa = PBXFrameworksBuildPhase; buildActionMask = 2147483647; files = (); runOnlyForDeploymentPostprocessing = 0; };
+		F00000000000000000000201 /* Frameworks */ = {isa = PBXFrameworksBuildPhase; buildActionMask = 2147483647; files = (); runOnlyForDeploymentPostprocessing = 0; };
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		G00000000000000000000001 = {
+			isa = PBXGroup;
+			children = (
+				G00000000000000000000002 /* ThreeTCraneStudy */,
+				G00000000000000000000101 /* ThreeTCraneStudyTests */,
+				G00000000000000000000201 /* ThreeTCraneStudyUITests */,
+				G00000000000000000000301 /* Shared Resources */,
+				G00000000000000000000F01 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		G00000000000000000000002 /* ThreeTCraneStudy */ = {
+			isa = PBXGroup;
+			children = (
+				G00000000000000000000003 /* App */,
+				G00000000000000000000004 /* Content */,
+				G00000000000000000000005 /* Persistence */,
+				G00000000000000000000006 /* DesignSystem */,
+				G00000000000000000000007 /* Features */,
+				G00000000000000000000008 /* Resources */,
+			);
+			path = ThreeTCraneStudy;
+			sourceTree = "<group>";
+		};
+		G00000000000000000000003 /* App */ = {isa = PBXGroup; children = (A00000000000000000000001, A00000000000000000000002); path = App; sourceTree = "<group>"; };
+		G00000000000000000000004 /* Content */ = {isa = PBXGroup; children = (A00000000000000000000003, A00000000000000000000004); path = Content; sourceTree = "<group>"; };
+		G00000000000000000000005 /* Persistence */ = {isa = PBXGroup; children = (A00000000000000000000005, A00000000000000000000006); path = Persistence; sourceTree = "<group>"; };
+		G00000000000000000000006 /* DesignSystem */ = {isa = PBXGroup; children = (A00000000000000000000007); path = DesignSystem; sourceTree = "<group>"; };
+		G00000000000000000000007 /* Features */ = {isa = PBXGroup; children = (A00000000000000000000008, A00000000000000000000009, A00000000000000000000010, A00000000000000000000011, A00000000000000000000012); path = Features; sourceTree = "<group>"; };
+		G00000000000000000000008 /* Resources */ = {isa = PBXGroup; children = (A0000000000000000000000E, A0000000000000000000000D); path = Resources; sourceTree = "<group>"; };
+		G00000000000000000000101 /* ThreeTCraneStudyTests */ = {isa = PBXGroup; children = (A00000000000000000000101, A00000000000000000000102); path = ThreeTCraneStudyTests; sourceTree = "<group>"; };
+		G00000000000000000000201 /* ThreeTCraneStudyUITests */ = {isa = PBXGroup; children = (A00000000000000000000201); path = ThreeTCraneStudyUITests; sourceTree = "<group>"; };
+		G00000000000000000000301 /* Shared Resources */ = {isa = PBXGroup; children = (A0000000000000000000000A, A0000000000000000000000B, A0000000000000000000000C); name = "Shared Resources"; sourceTree = "<group>"; };
+		G00000000000000000000F01 /* Products */ = {isa = PBXGroup; children = (A00000000000000000000F01, A00000000000000000000F02, A00000000000000000000F03); name = Products; sourceTree = "<group>"; };
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		D00000000000000000000001 /* ThreeTCraneStudy */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = H00000000000000000000001 /* Build configuration list for PBXNativeTarget "ThreeTCraneStudy" */;
+			buildPhases = (S00000000000000000000001, F00000000000000000000001, R00000000000000000000001, Q00000000000000000000001);
+			buildRules = ();
+			dependencies = ();
+			name = ThreeTCraneStudy;
+			productName = ThreeTCraneStudy;
+			productReference = A00000000000000000000F01 /* ThreeTCraneStudy.app */;
+			productType = "com.apple.product-type.application";
+		};
+		D00000000000000000000101 /* ThreeTCraneStudyTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = H00000000000000000000101 /* Build configuration list for PBXNativeTarget "ThreeTCraneStudyTests" */;
+			buildPhases = (S00000000000000000000101, F00000000000000000000101, R00000000000000000000101);
+			buildRules = ();
+			dependencies = (T00000000000000000000101 /* PBXTargetDependency */);
+			name = ThreeTCraneStudyTests;
+			productName = ThreeTCraneStudyTests;
+			productReference = A00000000000000000000F02 /* ThreeTCraneStudyTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		D00000000000000000000201 /* ThreeTCraneStudyUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = H00000000000000000000201 /* Build configuration list for PBXNativeTarget "ThreeTCraneStudyUITests" */;
+			buildPhases = (S00000000000000000000201, F00000000000000000000201, R00000000000000000000201);
+			buildRules = ();
+			dependencies = (T00000000000000000000201 /* PBXTargetDependency */);
+			name = ThreeTCraneStudyUITests;
+			productName = ThreeTCraneStudyUITests;
+			productReference = A00000000000000000000F03 /* ThreeTCraneStudyUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		E00000000000000000000001 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 2660;
+				LastUpgradeCheck = 2660;
+				TargetAttributes = {
+					D00000000000000000000001 = { CreatedOnToolsVersion = 26.6; };
+					D00000000000000000000101 = { CreatedOnToolsVersion = 26.6; TestTargetID = D00000000000000000000001; };
+					D00000000000000000000201 = { CreatedOnToolsVersion = 26.6; TestTargetID = D00000000000000000000001; };
+				};
+			};
+			buildConfigurationList = H00000000000000000000F01 /* Build configuration list for PBXProject "ThreeTCraneStudy" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = zh_Hant;
+			hasScannedForEncodings = 0;
+			knownRegions = (en, Base, zh_Hant);
+			mainGroup = G00000000000000000000001;
+			productRefGroup = G00000000000000000000F01 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (D00000000000000000000001, D00000000000000000000101, D00000000000000000000201);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		R00000000000000000000001 /* Resources */ = {isa = PBXResourcesBuildPhase; buildActionMask = 2147483647; files = (B0000000000000000000000B, B0000000000000000000000C, B0000000000000000000000D); runOnlyForDeploymentPostprocessing = 0; };
+		R00000000000000000000101 /* Resources */ = {isa = PBXResourcesBuildPhase; buildActionMask = 2147483647; files = (B00000000000000000000103); runOnlyForDeploymentPostprocessing = 0; };
+		R00000000000000000000201 /* Resources */ = {isa = PBXResourcesBuildPhase; buildActionMask = 2147483647; files = (); runOnlyForDeploymentPostprocessing = 0; };
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		Q00000000000000000000001 /* Embed Internal TestFlight Question Bank */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = ();
+			inputPaths = ();
+			name = "Embed Internal TestFlight Question Bank";
+			outputPaths = ();
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "set -eu\ndestination=\"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}\"\ninternal_json=\"${destination}/question-bank.internal.json\"\ninternal_assets=\"${destination}/QuestionBankAssets\"\n/bin/rm -f \"${internal_json}\"\n/bin/rm -rf \"${internal_assets}\"\nif [ \"${INCLUDE_INTERNAL_QUESTION_BANK:-NO}\" = \"YES\" ]; then\n  source_root=\"${SRCROOT}/PrivateResources/TestFlightBundle\"\n  source_json=\"${source_root}/question-bank.internal.json\"\n  source_assets=\"${source_root}/QuestionBankAssets\"\n  if [ ! -f \"${source_json}\" ] || [ ! -d \"${source_assets}\" ]; then\n    echo \"error: Internal TestFlight question package is missing. Run Scripts/content/build_internal_testflight_bank.py first.\" >&2\n    exit 1\n  fi\n  /bin/mkdir -p \"${destination}\"\n  /bin/cp \"${source_json}\" \"${internal_json}\"\n  /bin/cp -R \"${source_assets}\" \"${internal_assets}\"\nfi\n# Build products under a synced Documents folder can inherit Finder/file-provider metadata.\n# Remove it from the product before code signing; this does not modify source content.\n/usr/bin/xattr -cr \"${destination}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		S00000000000000000000001 /* Sources */ = {isa = PBXSourcesBuildPhase; buildActionMask = 2147483647; files = (B00000000000000000000001, B00000000000000000000002, B00000000000000000000003, B00000000000000000000004, B00000000000000000000005, B00000000000000000000006, B00000000000000000000007, B00000000000000000000008, B00000000000000000000009, B00000000000000000000010, B00000000000000000000011, B00000000000000000000012, B0000000000000000000000A); runOnlyForDeploymentPostprocessing = 0; };
+		S00000000000000000000101 /* Sources */ = {isa = PBXSourcesBuildPhase; buildActionMask = 2147483647; files = (B00000000000000000000101, B00000000000000000000102); runOnlyForDeploymentPostprocessing = 0; };
+		S00000000000000000000201 /* Sources */ = {isa = PBXSourcesBuildPhase; buildActionMask = 2147483647; files = (B00000000000000000000201); runOnlyForDeploymentPostprocessing = 0; };
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		T00000000000000000000101 /* PBXTargetDependency */ = {isa = PBXTargetDependency; target = D00000000000000000000001 /* ThreeTCraneStudy */; targetProxy = C00000000000000000000101 /* PBXContainerItemProxy */; };
+		T00000000000000000000201 /* PBXTargetDependency */ = {isa = PBXTargetDependency; target = D00000000000000000000001 /* ThreeTCraneStudy */; targetProxy = C00000000000000000000201 /* PBXContainerItemProxy */; };
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		I00000000000000000000F01 /* Debug */ = {isa = XCBuildConfiguration; buildSettings = {ALWAYS_SEARCH_USER_PATHS = NO; CLANG_ENABLE_MODULES = YES; CLANG_ENABLE_OBJC_ARC = YES; DEBUG_INFORMATION_FORMAT = dwarf; ENABLE_TESTABILITY = YES; GCC_C_LANGUAGE_STANDARD = gnu17; GCC_OPTIMIZATION_LEVEL = 0; IPHONEOS_DEPLOYMENT_TARGET = 17.0; ONLY_ACTIVE_ARCH = YES; SDKROOT = iphoneos; SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG; SWIFT_OPTIMIZATION_LEVEL = "-Onone"; SWIFT_VERSION = 5.0; }; name = Debug; };
+		I00000000000000000000F02 /* Release */ = {isa = XCBuildConfiguration; buildSettings = {ALWAYS_SEARCH_USER_PATHS = NO; CLANG_ENABLE_MODULES = YES; CLANG_ENABLE_OBJC_ARC = YES; DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym"; ENABLE_NS_ASSERTIONS = NO; GCC_C_LANGUAGE_STANDARD = gnu17; IPHONEOS_DEPLOYMENT_TARGET = 17.0; SDKROOT = iphoneos; SWIFT_COMPILATION_MODE = wholemodule; SWIFT_OPTIMIZATION_LEVEL = "-O"; SWIFT_VERSION = 5.0; VALIDATE_PRODUCT = YES; }; name = Release; };
+		I00000000000000000000001 /* Debug */ = {isa = XCBuildConfiguration; buildSettings = {ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon; ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = PrimaryBlue; CODE_SIGN_STYLE = Automatic; CURRENT_PROJECT_VERSION = 4; ENABLE_PREVIEWS = YES; ENABLE_USER_SCRIPT_SANDBOXING = NO; GENERATE_INFOPLIST_FILE = NO; INFOPLIST_FILE = ThreeTCraneStudy/Resources/Info.plist; MARKETING_VERSION = 0.1.0; PRODUCT_BUNDLE_IDENTIFIER = tw.tauruswinner.crane.study; PRODUCT_NAME = "$(TARGET_NAME)"; SUPPORTED_PLATFORMS = "iphoneos iphonesimulator"; SWIFT_EMIT_LOC_STRINGS = YES; TARGETED_DEVICE_FAMILY = "1,2"; }; name = Debug; };
+		I00000000000000000000002 /* Release */ = {isa = XCBuildConfiguration; buildSettings = {ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon; ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = PrimaryBlue; CODE_SIGN_STYLE = Automatic; CURRENT_PROJECT_VERSION = 4; ENABLE_PREVIEWS = YES; ENABLE_USER_SCRIPT_SANDBOXING = NO; GENERATE_INFOPLIST_FILE = NO; INFOPLIST_FILE = ThreeTCraneStudy/Resources/Info.plist; MARKETING_VERSION = 0.1.0; PRODUCT_BUNDLE_IDENTIFIER = tw.tauruswinner.crane.study; PRODUCT_NAME = "$(TARGET_NAME)"; SUPPORTED_PLATFORMS = "iphoneos iphonesimulator"; SWIFT_EMIT_LOC_STRINGS = YES; TARGETED_DEVICE_FAMILY = "1,2"; }; name = Release; };
+		I00000000000000000000101 /* Debug */ = {isa = XCBuildConfiguration; buildSettings = {BUNDLE_LOADER = "$(TEST_HOST)"; CODE_SIGN_STYLE = Automatic; GENERATE_INFOPLIST_FILE = YES; IPHONEOS_DEPLOYMENT_TARGET = 17.0; PRODUCT_BUNDLE_IDENTIFIER = tw.tauruswinner.crane.study.tests; PRODUCT_NAME = "$(TARGET_NAME)"; SUPPORTED_PLATFORMS = "iphoneos iphonesimulator"; SWIFT_VERSION = 5.0; TARGETED_DEVICE_FAMILY = "1,2"; TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ThreeTCraneStudy.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/ThreeTCraneStudy"; }; name = Debug; };
+		I00000000000000000000102 /* Release */ = {isa = XCBuildConfiguration; buildSettings = {BUNDLE_LOADER = "$(TEST_HOST)"; CODE_SIGN_STYLE = Automatic; GENERATE_INFOPLIST_FILE = YES; IPHONEOS_DEPLOYMENT_TARGET = 17.0; PRODUCT_BUNDLE_IDENTIFIER = tw.tauruswinner.crane.study.tests; PRODUCT_NAME = "$(TARGET_NAME)"; SUPPORTED_PLATFORMS = "iphoneos iphonesimulator"; SWIFT_VERSION = 5.0; TARGETED_DEVICE_FAMILY = "1,2"; TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ThreeTCraneStudy.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/ThreeTCraneStudy"; }; name = Release; };
+		I00000000000000000000201 /* Debug */ = {isa = XCBuildConfiguration; buildSettings = {CODE_SIGN_STYLE = Automatic; GENERATE_INFOPLIST_FILE = YES; IPHONEOS_DEPLOYMENT_TARGET = 17.0; PRODUCT_BUNDLE_IDENTIFIER = tw.tauruswinner.crane.study.uitests; PRODUCT_NAME = "$(TARGET_NAME)"; SUPPORTED_PLATFORMS = "iphoneos iphonesimulator"; SWIFT_VERSION = 5.0; TARGETED_DEVICE_FAMILY = "1,2"; TEST_TARGET_NAME = ThreeTCraneStudy; }; name = Debug; };
+		I00000000000000000000202 /* Release */ = {isa = XCBuildConfiguration; buildSettings = {CODE_SIGN_STYLE = Automatic; GENERATE_INFOPLIST_FILE = YES; IPHONEOS_DEPLOYMENT_TARGET = 17.0; PRODUCT_BUNDLE_IDENTIFIER = tw.tauruswinner.crane.study.uitests; PRODUCT_NAME = "$(TARGET_NAME)"; SUPPORTED_PLATFORMS = "iphoneos iphonesimulator"; SWIFT_VERSION = 5.0; TARGETED_DEVICE_FAMILY = "1,2"; TEST_TARGET_NAME = ThreeTCraneStudy; }; name = Release; };
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		H00000000000000000000F01 /* Build configuration list for PBXProject "ThreeTCraneStudy" */ = {isa = XCConfigurationList; buildConfigurations = (I00000000000000000000F01, I00000000000000000000F02); defaultConfigurationIsVisible = 0; defaultConfigurationName = Release; };
+		H00000000000000000000001 /* Build configuration list for PBXNativeTarget "ThreeTCraneStudy" */ = {isa = XCConfigurationList; buildConfigurations = (I00000000000000000000001, I00000000000000000000002); defaultConfigurationIsVisible = 0; defaultConfigurationName = Release; };
+		H00000000000000000000101 /* Build configuration list for PBXNativeTarget "ThreeTCraneStudyTests" */ = {isa = XCConfigurationList; buildConfigurations = (I00000000000000000000101, I00000000000000000000102); defaultConfigurationIsVisible = 0; defaultConfigurationName = Release; };
+		H00000000000000000000201 /* Build configuration list for PBXNativeTarget "ThreeTCraneStudyUITests" */ = {isa = XCConfigurationList; buildConfigurations = (I00000000000000000000201, I00000000000000000000202); defaultConfigurationIsVisible = 0; defaultConfigurationName = Release; };
+/* End XCConfigurationList section */
+	};
+	rootObject = E00000000000000000000001 /* Project object */;
+}

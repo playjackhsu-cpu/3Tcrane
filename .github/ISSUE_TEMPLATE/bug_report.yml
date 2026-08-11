@@ -1,0 +1,33 @@
+name: Bug report
+description: 回報不含個資或題庫原始內容的 App 問題
+title: "[Bug] "
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: 請勿上傳帳號、憑證、完整學習紀錄、原始題庫或未授權教材。
+  - type: input
+    id: version
+    attributes:
+      label: App／內容版本
+      placeholder: 1.0.0 (1)／content 1.0.0
+    validations:
+      required: true
+  - type: dropdown
+    id: device
+    attributes:
+      label: 裝置類型
+      options: [iPhone, iPad]
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: 重現步驟與預期結果
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: 去識別化證據
+      description: 截圖前請遮蔽任何私人筆記或可識別資料。

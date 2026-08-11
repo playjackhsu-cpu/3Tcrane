@@ -1,0 +1,87 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://playjackhsu-cpu.github.io/3Tcrane/schema/question-bank-v1.json",
+  "title": "3Tcrane public question bank",
+  "type": "object",
+  "required": ["schemaVersion", "contentVersion", "subjects", "chapters", "questions"],
+  "additionalProperties": false,
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "contentVersion": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$" },
+    "generatedAt": { "type": "string", "format": "date-time" },
+    "sourceSystem": { "const": "3Tcrane" },
+    "isSynthetic": { "type": "boolean" },
+    "subjects": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/subject" }
+    },
+    "chapters": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/chapter" }
+    },
+    "questions": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/question" }
+    }
+  },
+  "$defs": {
+    "subject": {
+      "type": "object",
+      "required": ["id", "title", "order"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "title": { "type": "string", "minLength": 1 },
+        "order": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "chapter": {
+      "type": "object",
+      "required": ["id", "subjectId", "title", "order"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "subjectId": { "$ref": "#/$defs/id" },
+        "title": { "type": "string", "minLength": 1 },
+        "order": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9._-]{2,63}$"
+    },
+    "question": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id", "publicCode", "subjectId", "chapterId", "kind", "prompt",
+        "explanation", "alternativeAnswer", "publicSource", "publicSourceUrl",
+        "publicSourceCheckedAt", "accuracyStatus", "rightsStatus"
+      ],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "publicCode": { "type": "string", "minLength": 1 },
+        "subjectId": { "$ref": "#/$defs/id" },
+        "chapterId": { "$ref": "#/$defs/id" },
+        "kind": { "enum": ["choice", "qa"] },
+        "prompt": { "type": "string", "minLength": 1 },
+        "options": {
+          "type": "array",
+          "minItems": 4,
+          "maxItems": 4,
+          "uniqueItems": true,
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "answerIndex": { "type": "integer", "minimum": 0, "maximum": 3 },
+        "answer": { "type": "string" },
+        "explanation": { "type": "string" },
+        "alternativeAnswer": { "type": "string" },
+        "publicSource": { "type": "string" },
+        "publicSourceUrl": { "type": "string" },
+        "publicSourceCheckedAt": { "type": "string" },
+        "accuracyStatus": { "enum": ["unchecked", "checked", "needs-review", "deprecated"] },
+        "rightsStatus": { "enum": ["cleared", "official-open-data", "public-domain", "synthetic"] }
+      }
+    }
+  }
+}
