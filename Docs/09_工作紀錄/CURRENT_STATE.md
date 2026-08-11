@@ -68,6 +68,7 @@ updated: 2026-08-11
 - GitHub Pages 已以 workflow 模式啟用並完成首次成功部署；公開隱私權政策與支援頁均以未登入 HTTP 請求回讀為 200。
 - 已建立 App Store 正式題庫 release candidate：內容版 `0.2.1`，983 題一般抽題、17 題治理例外（8／5／4）與 15 個題圖；每題保留公開來源及官方參考答案審查狀態，公開包移除私有頁碼、掃描來源與內部路徑，並加入技能檢定中心政府網站資料開放宣告之顯名與授權連結。發行包 SHA-256 為 `7399af027135ea462811d55bdc3f91dccefaf967dca7b92065aea7cfbcaaed15`。
 - App Store `1.0.0`（build 6）發行候選 QA 通過：14／14 unit／升級保留測試、iPhone UI 5 通過／2 項裝置條件跳過、iPad UI 6 通過／1 項裝置條件跳過、iPhone／iPad Release build 均成功，兩平台 0 失敗。正式 bundle 回讀為版本 `1.0.0`、build `6`、983 題、17 題例外、15 個題圖，且只含正式題庫 JSON、不含合成或私有題庫。
+- 已建立 `1.0.0`（build 6）本機 signed archive 與 App Store Connect 匯出 IPA；重新簽章後回讀 `get-task-allow=false`、`beta-reports-active=true`、`ITSAppUsesNonExemptEncryption=false`，內容與私有標記掃描通過。IPA SHA-256 為 `387e4760befc9c2a5605a2aed94b8ce6b5bc570af5224c07fa2c6f7f95996921`；archive／IPA 只保存在 Git 忽略的 `Artifacts/`，尚未上傳 Apple。
 
 ## 尚未完成
 
@@ -76,11 +77,11 @@ updated: 2026-08-11
 - UI 已完成 iPhone／iPad 核心流程、iPad 比例與 Dark 模式的模擬器檢查；尚未完成 High Contrast、Dynamic Type、VoiceOver、橫向／多工與多款實機完整驗證。
 - 已確認指定 `origin` 的 GitHub SSH 驗證可用；PR #1 已合併至 `main`，`Protect main` Ruleset 與五道必要檢查維持啟用，GitHub Pages 已完成部署。GitHub security 的額外選配項目仍可後續強化，但不影響目前 PR gate。
 - Internal TestFlight build 5 已上線；群組目前有 2 位測試人員。其餘 3 位指定聯絡人仍須具備 App Store Connect 帳號、正確姓／名與合格角色後，才能以最低必要權限完成邀請；10 人規劃仍有 5 個未指定名額。
-- 隱私權政策／支援 URL 已部署並可公開讀取，截圖亦已完成上傳；仍未完成的 Apple gate 為正式 signed archive 上傳與選版、App Review 私密聯絡資料、App Privacy 最終發布、Content Rights 最終確認及「新增以供審查」。
+- 隱私權政策／支援 URL 已部署並可公開讀取，截圖與本機 signed archive／IPA 亦已完成；仍未完成的 Apple gate 為 build 6 上傳與選版、App Review 私密聯絡資料、App Privacy 最終發布、Content Rights 最終確認及「新增以供審查」。
 
 ## 下一個可執行工作
 
-將 `1.0.0`（build 6）正式題庫與發行治理變更提交草稿 PR，等待五道必要檢查全綠及 Owner 合併核准。之後建立正式 signed archive；Owner 完成 Content Rights、App Privacy 與私密審查聯絡資料確認後，才上傳／選取 build 並按下「新增以供審查」。首版已免費，沒有 Paid Applications Agreement、銀行或稅務 gate。
+等待 `1.0.0`（build 6）草稿 PR 的五道必要檢查全綠及 Owner 合併核准。Owner 完成 Content Rights、App Privacy 與私密審查聯絡資料確認後，才上傳／選取既有 signed build 並按下「新增以供審查」。首版已免費，沒有 Paid Applications Agreement、銀行或稅務 gate。
 
 ## 不可遺忘
 
