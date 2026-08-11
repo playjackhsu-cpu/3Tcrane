@@ -2,7 +2,7 @@
 
 ## 2026-08-11
 
-- 修正暗色模式的全域語意色：頁面背景、卡片邊界、主要／次要文字及互動色均加入 Dark 變體，排除深色卡片搭配深色文字與淺色導覽列搭配白字的低對比問題；新增 Light／Dark 4.5:1 對比單元測試與 iPhone／iPad 暗色首頁 UI gate。14 項 unit tests、iPhone 7 項及 iPad 7 項完整 UI 回歸皆 0 失敗；另建立不同 Bundle ID 的 QA App，避免覆蓋既有 TestFlight App 與學習紀錄。
+- 修正暗色模式的全域語意色：頁面背景、卡片邊界、主要／次要文字及互動色均加入 Dark 變體，排除深色卡片搭配深色文字與淺色導覽列搭配白字的低對比問題；新增 Light／Dark 4.5:1 對比單元測試與 iPhone／iPad 暗色首頁 UI gate。14 項 unit tests、iPhone 7 項及 iPad 7 項完整 UI 回歸皆 0 失敗；另建立不同 Bundle ID 的 QA App，避免覆蓋既有 TestFlight App 與學習紀錄，並於連接的 iPhone 11 與 iPad 完成安裝及 Dark Mode 前景啟動 smoke。
 - 建立並啟用 GitHub `Protect main` Ruleset：套用預設分支 `main`、無 bypass、禁止刪除與 force push、要求 linear history、PR、對話解決與最新分支，並要求 `public-repository-gate`、`Unit tests`、`Release build`、`iPhone UI smoke test`、`iPad UI smoke test` 五道檢查。Draft PR #1 最新 Governance 與 iOS CI workflow 均已完成且成功，PR 維持 Draft、未合併。
 - 產生並稽核 0.1.0（build 5）App Store archive，確認 iPad 比例修正、內容版 `0.2.1`、983 題候選、15 個題圖與 17 題治理例外，且未含私有來源定位、原始 PDF、敏感路徑或憑證；Apple 上傳與處理完成後已加入既有內部群組，目前顯示「正在測試」。未建立外部測試，未送 Beta App Review 或 App Review。
 - 將首個公開基線提交至 `agent/initial-public-baseline`（commit `eb0621d`）並建立 Draft PR #1；首輪 GitHub Actions 的 Governance、12 項 unit／升級保留、Release build、iPhone UI smoke 與 iPad UI smoke 全數通過。PR 維持 Draft，尚未合併至 `main`。

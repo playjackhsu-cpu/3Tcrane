@@ -59,7 +59,7 @@ updated: 2026-08-11
 - 已在 GitHub 啟用 Active `Protect main` Ruleset，目標為預設分支 `main`，無 bypass；禁止刪除與 force push、要求 linear history、PR、對話解決、分支保持最新，並將 `public-repository-gate`、`Unit tests`、`Release build`、`iPhone UI smoke test`、`iPad UI smoke test` 設為必要檢查。單人維護階段依既定治理維持 0 個必要核准，改以 CI 全綠與 Owner checklist 明示核准作 gate。
 - 已更新 [[Docs/07_發布與維運/TestFlight測試版交付清單]]，完整記錄候選版功能、QA 證據、Apple 上傳結果、內部測試治理與未完成名單條件；公開文件不含測試者信箱、Team ID、憑證或 Apple 內部識別碼。
 - 已完成暗色模式第一輪修正：8 組品牌語意色具備一致的 Light／Dark 動態值，頁面、側欄、導覽列、卡片、標題、次要文字與互動色會同步切換；主要文字、次要文字與互動藍色具有至少 4.5:1 自動對比 gate。14 項 unit tests、iPhone 7 項與 iPad 7 項完整 UI 回歸均 0 失敗，並保留暗色首頁截圖證據。
-- 已為連接實機建立不同 Bundle ID 的合成題庫 QA App，避免覆蓋 Internal TestFlight App 或既有學習紀錄；iPhone 11 已完成安裝，兩台裝置的前景啟動與畫面驗證待保持解鎖後完成。QA App、簽章與測試產物均未進入公開 Git。
+- 已為連接實機建立不同 Bundle ID 的合成題庫 QA App，避免覆蓋 Internal TestFlight App 或既有學習紀錄；iPhone 11 與 iPad 均已完成安裝及 Dark Mode 前景啟動 smoke。QA App、裝置識別資訊、簽章與測試產物均未進入公開 Git。
 
 ## 尚未完成
 
