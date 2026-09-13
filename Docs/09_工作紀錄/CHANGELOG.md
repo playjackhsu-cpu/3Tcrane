@@ -7,6 +7,10 @@
 - 題庫內容與 983 題一般題池均未修改；學習紀錄仍保存在 App bundle 之外的 SwiftData store，新增狀態沿用既有欄位值，避免破壞既有資料 schema。
 - App Store Connect 已回讀首版 `1.0.0`（build 6）為「已可發佈」；本次更新版本規劃為 `1.0.1`（build 7）。
 - 本機最終驗證通過 17／17 unit／升級保留測試、iPhone UI 6 通過／2 項裝置條件跳過、iPad UI 7 通過／1 項裝置條件跳過，兩平台均 0 失敗；正式題庫 QA App 已在 iPhone 11 安裝並啟動。本輪 iPad 因 Xcode 回報裝置不可用，未把 USB 裝置紀錄視為實機通過。
+- [PR #6](https://github.com/playjackhsu-cpu/3Tcrane/pull/6) 五道必要檢查全數通過後已 squash merge 至 `main`（merge commit `ace6f7f64476c36d30a6410aafd52249c50faff8`）。
+- 建立並稽核 App Store `1.0.1`（build 7）發行包：983 題、17 題例外與 15 個題圖齊全，未夾帶私有題庫、掃描原稿或簽章資料；IPA SHA-256 為 `9d6a94f6819d141c3842aa4a3303885449bbcab9c1a356187e7a8bee9bf302c0`。
+- `1.0.1`（build 7）已於 2026-09-14 07:42 透過 Transporter 送達並由 Apple 完成處理；已綁定商店版本、儲存新增功能與審查路徑，07:48 提交 App Review，App Store Connect 回讀為「正在等待審查」。
+- App Store Connect 「定價與供應狀況」已確認 `1.0.0`（build 6）在台灣 1 個地區供應，並顯示可停售操作；因此本輪不再誤將「已可發佈」解讀為尚未公開。
 
 ## 2026-08-11
 
