@@ -5,7 +5,27 @@ enum MasteryState: String {
     case new
     case learning
     case needsReview = "needs-review"
+    case reviewCorrectOnce = "review-correct-1"
+    case reviewCorrectTwice = "review-correct-2"
     case mastered
+
+    var reviewCorrectStreak: Int {
+        switch self {
+        case .reviewCorrectOnce: 1
+        case .reviewCorrectTwice: 2
+        case .mastered: 3
+        default: 0
+        }
+    }
+
+    var explicitlyNeedsReview: Bool {
+        self == .needsReview || self == .reviewCorrectOnce || self == .reviewCorrectTwice
+    }
+}
+
+enum AnswerRecordingMode: Equatable {
+    case regular
+    case wrongAnswerReview
 }
 
 struct ExamQuestionSnapshot: Codable, Equatable, Identifiable {
@@ -78,6 +98,24 @@ final class QuestionProgress {
         self.lastAnswerIndex = lastAnswerIndex
         self.lastAnsweredAt = lastAnsweredAt
         self.masteryState = masteryState
+    }
+}
+
+extension QuestionProgress {
+    var needsWrongAnswerReview: Bool {
+        let state = MasteryState(rawValue: masteryState) ?? .new
+        if state.explicitlyNeedsReview {
+            return true
+        }
+
+        // 舊版以 learning 搭配累計答對數表示可能仍有錯題；保留這些既有錯題，
+        // 但不把無法驗證是否連續、是否來自錯題複習的舊答案算進新連勝。
+        return state == .learning && attemptCount > correctCount
+    }
+
+    var wrongAnswerReviewStreak: Int {
+        let state = MasteryState(rawValue: masteryState) ?? .new
+        return state.reviewCorrectStreak
     }
 }
 

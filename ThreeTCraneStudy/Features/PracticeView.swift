@@ -1,29 +1,46 @@
 import SwiftData
 import SwiftUI
 
+enum PracticeMode: Equatable {
+    case regular
+    case fullQuestionBank
+    case wrongAnswerReview
+
+    static let fullQuestionBankStateKey = "full-question-bank-practice"
+
+    var answerRecordingMode: AnswerRecordingMode {
+        self == .wrongAnswerReview ? .wrongAnswerReview : .regular
+    }
+}
+
 struct PracticeView: View {
     @EnvironmentObject private var contentStore: ContentStore
     @Environment(\.modelContext) private var modelContext
     @Query private var favorites: [Favorite]
     @Query private var notes: [QuestionNote]
     @Query private var appStates: [AppState]
+    @Query private var progress: [QuestionProgress]
     @State private var currentIndex = 0
     @State private var selectedIndex: Int?
     @State private var saveError: String?
     @State private var isEditingNote = false
     @State private var noteDraft = ""
+    @State private var isReviewComplete = false
     let questionIDs: [String]?
     let initialQuestionID: String?
     let title: String
+    let mode: PracticeMode
 
     init(
         questionIDs: [String]? = nil,
         initialQuestionID: String? = nil,
-        title: String = "題庫練習"
+        title: String = "題庫練習",
+        mode: PracticeMode = .regular
     ) {
         self.questionIDs = questionIDs
         self.initialQuestionID = initialQuestionID
         self.title = title
+        self.mode = mode
     }
 
     private var questions: [StudyQuestion] {
@@ -46,9 +63,24 @@ struct PracticeView: View {
         return notes.first { $0.questionID == question.id }
     }
 
+    private var currentProgress: QuestionProgress? {
+        guard let question else { return nil }
+        return progress.first { $0.questionID == question.id }
+    }
+
+    private var pendingWrongQuestionIDs: Set<String> {
+        Set(progress.filter(\.needsWrongAnswerReview).map(\.questionID))
+    }
+
     var body: some View {
         Group {
-            if let question {
+            if isReviewComplete {
+                ContentUnavailableView {
+                    Label("錯題複習完成", systemImage: "checkmark.seal.fill")
+                } description: {
+                    Text("這次清單中的錯題都已連續答對 3 次，已自動移出錯題複習。")
+                }
+            } else if let question {
                 ScrollView {
                     VStack(alignment: .leading, spacing: 18) {
                         HStack {
@@ -72,6 +104,13 @@ struct PracticeView: View {
                         SwiftUI.ProgressView(value: Double(currentIndex + 1), total: Double(questions.count))
                             .accessibilityLabel("第 \(currentIndex + 1) 題，共 \(questions.count) 題")
 
+                        if mode == .fullQuestionBank {
+                            Label("不限時・依題庫順序・選項順序固定", systemImage: "list.number")
+                                .font(.subheadline.weight(.semibold))
+                                .foregroundStyle(Color.cranePrimaryBlue)
+                                .accessibilityIdentifier("fullPractice.rules")
+                        }
+
                         Text(question.prompt)
                             .font(.title3.bold())
                             .lineSpacing(4)
@@ -91,13 +130,31 @@ struct PracticeView: View {
                         if let selectedIndex {
                             AnswerExplanationCard(question: question, selectedIndex: selectedIndex)
 
+                            if mode == .wrongAnswerReview, let currentProgress {
+                                Label(
+                                    currentProgress.needsWrongAnswerReview
+                                        ? "連續答對 \(currentProgress.wrongAnswerReviewStreak)／3 次"
+                                        : "已連續答對 3 次，將移出錯題複習",
+                                    systemImage: currentProgress.needsWrongAnswerReview
+                                        ? "repeat.circle"
+                                        : "checkmark.seal.fill"
+                                )
+                                .font(.subheadline.weight(.semibold))
+                                .foregroundStyle(
+                                    currentProgress.needsWrongAnswerReview
+                                        ? Color.craneAccentOrange
+                                        : Color.craneSuccessGreen
+                                )
+                                .accessibilityIdentifier("practice.reviewStreak")
+                            }
+
                             HStack {
                                 Button("上一題", action: moveToPreviousQuestion)
                                     .buttonStyle(.bordered)
                                     .disabled(questions.count < 2)
                                 Spacer()
                                 Button(
-                                    currentIndex == questions.count - 1 ? "回到第一題" : "下一題",
+                                    nextButtonTitle,
                                     action: moveToNextQuestion
                                 )
                                 .buttonStyle(.borderedProminent)
@@ -199,7 +256,10 @@ struct PracticeView: View {
         } message: {
             Text(saveError ?? "未知錯誤")
         }
-        .onAppear(perform: selectInitialQuestion)
+        .onAppear {
+            selectInitialQuestion()
+            saveCurrentPositionIfNeeded()
+        }
     }
 
     private func optionButton(question: StudyQuestion, index: Int) -> some View {
@@ -211,14 +271,10 @@ struct PracticeView: View {
                     questionID: question.id,
                     selectedIndex: index,
                     correctIndex: question.answerIndex,
+                    mode: mode.answerRecordingMode,
                     in: modelContext
                 )
-                try LearningPersistence.saveLastQuestion(
-                    questionID: question.id,
-                    contentVersion: contentStore.contentVersion,
-                    appBuild: appBuild,
-                    in: modelContext
-                )
+                try savePositionAfterAnswering(question)
             } catch {
                 saveError = error.localizedDescription
             }
@@ -301,8 +357,7 @@ struct PracticeView: View {
     }
 
     private func selectInitialQuestion() {
-        let targetID = initialQuestionID
-            ?? (questionIDs == nil ? appStates.first(where: { $0.key == "primary" })?.lastQuestionID : nil)
+        let targetID = initialQuestionID ?? resumableState?.lastQuestionID
         guard let targetID,
               let index = questions.firstIndex(where: { $0.id == targetID })
         else { return }
@@ -311,14 +366,97 @@ struct PracticeView: View {
 
     private func moveToNextQuestion() {
         guard !questions.isEmpty else { return }
-        currentIndex = (currentIndex + 1) % questions.count
+        if mode == .wrongAnswerReview {
+            let pendingIndices = questions.indices.filter {
+                pendingWrongQuestionIDs.contains(questions[$0].id)
+            }
+            guard !pendingIndices.isEmpty else {
+                isReviewComplete = true
+                return
+            }
+            currentIndex = pendingIndices.first(where: { $0 > currentIndex }) ?? pendingIndices[0]
+        } else {
+            currentIndex = (currentIndex + 1) % questions.count
+        }
         selectedIndex = nil
+        saveCurrentPositionIfNeeded()
     }
 
     private func moveToPreviousQuestion() {
         guard !questions.isEmpty else { return }
-        currentIndex = (currentIndex - 1 + questions.count) % questions.count
+        if mode == .wrongAnswerReview {
+            let pendingIndices = questions.indices.filter {
+                pendingWrongQuestionIDs.contains(questions[$0].id)
+            }
+            guard !pendingIndices.isEmpty else {
+                isReviewComplete = true
+                return
+            }
+            currentIndex = pendingIndices.last(where: { $0 < currentIndex }) ?? pendingIndices[pendingIndices.count - 1]
+        } else {
+            currentIndex = (currentIndex - 1 + questions.count) % questions.count
+        }
         selectedIndex = nil
+        saveCurrentPositionIfNeeded()
+    }
+
+    private var resumableState: AppState? {
+        guard let key = positionStateKey else { return nil }
+        return appStates.first { $0.key == key }
+    }
+
+    private var positionStateKey: String? {
+        switch mode {
+        case .fullQuestionBank:
+            PracticeMode.fullQuestionBankStateKey
+        case .regular where questionIDs == nil:
+            "primary"
+        default:
+            nil
+        }
+    }
+
+    private var nextButtonTitle: String {
+        if mode == .wrongAnswerReview, pendingWrongQuestionIDs.isEmpty {
+            return "完成錯題複習"
+        }
+        if currentIndex == questions.count - 1 {
+            return mode == .fullQuestionBank ? "完成並回到第一題" : "回到第一題"
+        }
+        return "下一題"
+    }
+
+    private func savePositionAfterAnswering(_ answeredQuestion: StudyQuestion) throws {
+        guard let stateKey = positionStateKey else { return }
+        let nextQuestionID: String?
+        if mode == .fullQuestionBank {
+            let nextIndex = currentIndex + 1
+            nextQuestionID = questions.indices.contains(nextIndex) ? questions[nextIndex].id : nil
+        } else {
+            nextQuestionID = answeredQuestion.id
+        }
+        try LearningPersistence.saveLastQuestion(
+            questionID: nextQuestionID,
+            contentVersion: contentStore.contentVersion,
+            appBuild: appBuild,
+            stateKey: stateKey,
+            in: modelContext
+        )
+    }
+
+    private func saveCurrentPositionIfNeeded() {
+        guard let question, let stateKey = positionStateKey else { return }
+        do {
+            try LearningPersistence.saveLastQuestion(
+                questionID: question.id,
+                contentVersion: contentStore.contentVersion,
+                appBuild: appBuild,
+                stateKey: stateKey,
+                in: modelContext
+            )
+        } catch {
+            saveError = error.localizedDescription
+        }
     }
 
     private func toggleFavorite() {

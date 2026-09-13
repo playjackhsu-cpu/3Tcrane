@@ -2,7 +2,7 @@
 title: App Store 上架文案
 tags: [apple, app-store, metadata, listing]
 status: release-candidate
-updated: 2026-08-11
+updated: 2026-09-14
 ---
 
 # App Store 上架文案
@@ -44,7 +44,8 @@ UTF-8 共 96 bytes，低於 Apple 的 100 bytes 上限；包含「固定式起�
 主要功能
 • 課程學習：依科目與章節固定順序閱讀題目、答案、解析、另解與公開來源，不必先作答，也不會污染作答統計。
 • 題庫練習：選答後立即判定，建立個人練習紀錄。
-• 錯題複習：集中重做答錯的題目，逐步追蹤熟練狀態。
+• 全題庫依序練習：不限時間，完全依題庫原始題序與選項順序作答；離開後會保存目前位置，選答後立即顯示正確答案與解析。
+• 錯題複習：集中重做答錯的題目；每題須連續答對 3 次才會移出，中途答錯即歸零重新計算。
 • 模擬測驗：提供 80 題／100 分鐘正式模式，以及 10 題／10 分鐘快速測驗。
 • 收藏與筆記：標記重點，在裝置內建立自己的複習資料。
 • iPhone 與 iPad：同一套學習內容支援手機和平板，並提供明亮與暗色模式。
@@ -66,9 +67,10 @@ This app does not require an account, sign-in, subscription, in-app purchase, or
 
 Suggested review path:
 1. Open 課程 and select a chapter to read questions, answers, explanations, alternate explanations, and public sources without changing answer statistics.
-2. Open 測驗 > 題庫練習 to answer questions with immediate feedback.
-3. Open 測驗 > 模擬測驗 to try the 10-question quick mode. The 80-question mode follows the fixed-crane skill-test composition and has a 100-minute timer.
-4. Open 首頁 > 官方題庫例外審查 to expand the separately governed deleted, disputed, and legal-transition items. These items are excluded from normal random selection.
+2. Open 測驗 > 全題庫依序練習. This untimed mode preserves the bundled question and option order, shows the correct answer and explanation immediately, and saves the next position locally.
+3. Answer a question incorrectly, then open 測驗 > 錯題複習. A wrong item is removed only after three consecutive correct answers in wrong-answer review; any incorrect answer resets the streak to zero.
+4. Open 測驗 > 模擬測驗 to try the 10-question quick mode. The 80-question mode follows the fixed-crane skill-test composition and has a 100-minute timer.
+5. Open 首頁 > 官方題庫例外審查 to expand the separately governed deleted, disputed, and legal-transition items. These items are excluded from normal random selection.
 
 The app is an independent study tool and is not affiliated with or endorsed by Taiwan's Ministry of Labor or Skills Evaluation Center. It does not replace legally required training or practical operation.
 ```
@@ -79,6 +81,12 @@ Review 聯絡人姓名、電話與 Email 屬 App Store Connect 私密欄位；�
 
 ```text
 首個正式版本：提供固定式起重機操作單一級技能檢定的課程閱讀、題庫練習、錯題複習、收藏筆記、學習紀錄與正式／快速模擬測驗。題庫內建、可離線使用，學習紀錄與 App 內容分開保存。
+```
+
+## What's New（1.0.1）
+
+```text
+新增全題庫依序練習：不限時間，題目與選項完全依內建題庫原始順序呈現，並保存下次續作位置；作答後立即顯示正確答案與解析。錯題複習改為每題連續答對 3 次才移出，中途答錯會歸零重新計算。既有進度、錯題、收藏、筆記與測驗紀錄均保留。
 ```
 
 ## URL

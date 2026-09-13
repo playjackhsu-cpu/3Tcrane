@@ -13,10 +13,7 @@ struct HomeView: View {
     private var totalAttempts: Int { progress.reduce(0) { $0 + $1.attemptCount } }
     private var totalCorrect: Int { progress.reduce(0) { $0 + $1.correctCount } }
     private var wrongCount: Int {
-        progress.filter { item in
-            let state = MasteryState(rawValue: item.masteryState) ?? .new
-            return state == .needsReview || (state == .learning && item.attemptCount > item.correctCount)
-        }.count
+        progress.filter(\.needsWrongAnswerReview).count
     }
     private var accuracy: Int {
         guard totalAttempts > 0 else { return 0 }

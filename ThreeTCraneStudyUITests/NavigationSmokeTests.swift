@@ -25,6 +25,32 @@ final class NavigationSmokeTests: XCTestCase {
         XCTAssertTrue(app.buttons["practice.favorite"].exists)
     }
 
+    func testFullQuestionBankPracticeIsUntimedOrderedAndImmediate() throws {
+        let app = launchInTestHub()
+
+        let fullPracticeEntry = app.buttons["testHub.fullPractice"]
+        XCTAssertTrue(fullPracticeEntry.waitForExistence(timeout: 5))
+        fullPracticeEntry.tap()
+
+        let prompt = app.staticTexts["practice.prompt"]
+        XCTAssertTrue(prompt.waitForExistence(timeout: 5))
+        XCTAssertEqual(
+            prompt.label,
+            "測量鋼索直徑精確尺寸時應選擇",
+            "全題庫練習應從題庫檔案中的第一題開始。"
+        )
+        XCTAssertTrue(app.staticTexts["fullPractice.rules"].exists)
+        XCTAssertFalse(app.staticTexts["剩餘時間"].exists)
+
+        app.buttons["practice.option.0"].tap()
+        XCTAssertTrue(
+            app.descendants(matching: .any)["practice.explanation"].waitForExistence(timeout: 2)
+                || app.descendants(matching: .any)["答錯了"].waitForExistence(timeout: 2),
+            "選答後應立即顯示錯誤與解析。"
+        )
+        XCTAssertTrue(app.buttons["practice.next"].waitForExistence(timeout: 2))
+    }
+
     func testCanCreateLocalQuestionNote() throws {
         let app = launchInTestHub()
         app.buttons["testHub.practice"].tap()

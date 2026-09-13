@@ -1,12 +1,18 @@
 ---
 title: Current State
 tags: [checkpoint, current-state]
-updated: 2026-08-11
+updated: 2026-09-14
 ---
 
-# Current State — 2026-08-11
+# Current State — 2026-09-14
 
 ## 已完成
+
+- 已新增「全題庫依序練習」模式：983 題依發行題庫原始順序、不限時、選項不重排，作答後立即訂正；獨立保存下次續作題目，不覆蓋課程閱讀位置。
+- 錯題複習已改為連續答對 3 次才自動移出；中途答錯即歸零重算，且其他練習模式答對不會偷渡累計錯題連勝。
+- 資料層 17 項單元／升級保留測試均已通過；iPhone／iPad 完整 UI 回歸均為 0 失敗，新增模式已確認題庫第 1 題、無計時、固定順序與即時回饋。
+- `1.0.1`（build 7）獨立 Bundle ID 的正式題庫 QA App 已在連接的 iPhone 11 完成安裝與前景啟動；本輪 iPad 雖有 USB 裝置紀錄但 Xcode 回報不可用，因此只採已通過的完整 iPad simulator 回歸，不宣稱本輪 iPad 實機通過。
+- App Store Connect 已於 2026-09-14 回讀首版 `1.0.0`（build 6）狀態為「已可發佈」；功能更新使用 `1.0.1`（build 7）準備封裝，首版尚未執行手動公開發佈。
 
 - 盤點空白 3Tcrane workspace、Taiwan_Wtsbot 架構與「設計污水檢定複習系統06」權威摘要。
 - 盤點本機 Xcode／Swift／Git／simulator 與空 GitHub 遠端。
@@ -84,7 +90,7 @@ updated: 2026-08-11
 
 ## 下一個可執行工作
 
-等待 Apple 對 `1.0.0`（build 6）的審查結果；核准後依既定設定由 Owner 手動發佈。程式治理另等待草稿 PR #6 的 Owner 合併核准；其 Governance、unit／升級保留、Release、iPhone UI 與 iPad UI 檢查已全綠。
+完成 `1.0.1`（build 7）公開倉庫 PR 必要檢查、signed archive 與發行包稽核；公開 `1.0.0` 後建立 1.0.1 商店版本、上傳並送審。
 
 ## 不可遺忘
 
