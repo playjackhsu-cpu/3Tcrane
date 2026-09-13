@@ -40,6 +40,8 @@ struct BundleQuestionRepository: QuestionRepository {
             self.resourceName = resourceName
         } else if bundle.url(forResource: "question-bank.internal", withExtension: "json") != nil {
             self.resourceName = "question-bank.internal"
+        } else if bundle.url(forResource: "question-bank.release", withExtension: "json") != nil {
+            self.resourceName = "question-bank.release"
         } else {
             self.resourceName = "question-bank.synthetic"
         }
@@ -86,6 +88,11 @@ struct BundleQuestionRepository: QuestionRepository {
                   chapterSubject[question.chapterId] == question.subjectId
             else {
                 throw QuestionRepositoryError.invalidReference(question.id)
+            }
+            guard ["unchecked", "checked", "official-reference-reviewed", "needs-review", "deprecated"].contains(question.accuracyStatus),
+                  ["cleared", "official-open-data", "public-domain", "synthetic"].contains(question.rightsStatus)
+            else {
+                throw QuestionRepositoryError.invalidQuestion(question.id)
             }
         }
         let questionIDs = Set(package.questions.map(\.id))

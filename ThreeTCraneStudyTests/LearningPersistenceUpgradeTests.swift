@@ -25,7 +25,7 @@ final class LearningPersistenceUpgradeTests: XCTestCase {
         XCTAssertEqual(records.map(\.questionID), ["retired-question"])
     }
 
-    func testWrongAnswerRequiresTwoCorrectReviewsToBecomeMastered() throws {
+    func testWrongAnswerRequiresThreeConsecutiveCorrectReviewsAndWrongResetsStreak() throws {
         let container = try LearningPersistence.makeContainer(inMemory: true)
         let context = container.mainContext
 
@@ -37,24 +37,103 @@ final class LearningPersistenceUpgradeTests: XCTestCase {
         )
         var progress = try XCTUnwrap(context.fetch(FetchDescriptor<QuestionProgress>()).first)
         XCTAssertEqual(progress.masteryState, MasteryState.needsReview.rawValue)
+        XCTAssertEqual(progress.wrongAnswerReviewStreak, 0)
 
         try LearningPersistence.recordAnswer(
             questionID: "fixture-choice-001",
             selectedIndex: 0,
             correctIndex: 0,
+            mode: .wrongAnswerReview,
             in: context
         )
         progress = try XCTUnwrap(context.fetch(FetchDescriptor<QuestionProgress>()).first)
-        XCTAssertEqual(progress.masteryState, MasteryState.learning.rawValue)
+        XCTAssertEqual(progress.masteryState, MasteryState.reviewCorrectOnce.rawValue)
+        XCTAssertEqual(progress.wrongAnswerReviewStreak, 1)
 
         try LearningPersistence.recordAnswer(
             questionID: "fixture-choice-001",
             selectedIndex: 0,
             correctIndex: 0,
+            mode: .wrongAnswerReview,
             in: context
         )
         progress = try XCTUnwrap(context.fetch(FetchDescriptor<QuestionProgress>()).first)
+        XCTAssertEqual(progress.masteryState, MasteryState.reviewCorrectTwice.rawValue)
+        XCTAssertEqual(progress.wrongAnswerReviewStreak, 2)
+
+        try LearningPersistence.recordAnswer(
+            questionID: "fixture-choice-001",
+            selectedIndex: 2,
+            correctIndex: 0,
+            mode: .wrongAnswerReview,
+            in: context
+        )
+        progress = try XCTUnwrap(context.fetch(FetchDescriptor<QuestionProgress>()).first)
+        XCTAssertEqual(progress.masteryState, MasteryState.needsReview.rawValue)
+        XCTAssertEqual(progress.wrongAnswerReviewStreak, 0)
+
+        for expectedStreak in 1...3 {
+            try LearningPersistence.recordAnswer(
+                questionID: "fixture-choice-001",
+                selectedIndex: 0,
+                correctIndex: 0,
+                mode: .wrongAnswerReview,
+                in: context
+            )
+            progress = try XCTUnwrap(context.fetch(FetchDescriptor<QuestionProgress>()).first)
+            XCTAssertEqual(progress.wrongAnswerReviewStreak, expectedStreak)
+        }
         XCTAssertEqual(progress.masteryState, MasteryState.mastered.rawValue)
+        XCTAssertFalse(progress.needsWrongAnswerReview)
+    }
+
+    func testRegularCorrectAnswerDoesNotAdvanceWrongAnswerReviewStreak() throws {
+        let container = try LearningPersistence.makeContainer(inMemory: true)
+        let context = container.mainContext
+
+        try LearningPersistence.recordAnswer(
+            questionID: "fixture-choice-001",
+            selectedIndex: 1,
+            correctIndex: 0,
+            in: context
+        )
+        try LearningPersistence.recordAnswer(
+            questionID: "fixture-choice-001",
+            selectedIndex: 0,
+            correctIndex: 0,
+            in: context
+        )
+
+        let progress = try XCTUnwrap(context.fetch(FetchDescriptor<QuestionProgress>()).first)
+        XCTAssertEqual(progress.masteryState, MasteryState.needsReview.rawValue)
+        XCTAssertEqual(progress.wrongAnswerReviewStreak, 0)
+    }
+
+    func testFullQuestionBankPositionIsIndependentFromCoursePosition() throws {
+        let container = try LearningPersistence.makeContainer(inMemory: true)
+        let context = container.mainContext
+
+        try LearningPersistence.saveLastQuestion(
+            questionID: "course-question",
+            contentVersion: "0.2.1",
+            appBuild: "6",
+            in: context
+        )
+        try LearningPersistence.saveLastQuestion(
+            questionID: "full-practice-question",
+            contentVersion: "0.2.1",
+            appBuild: "7",
+            stateKey: PracticeMode.fullQuestionBankStateKey,
+            in: context
+        )
+
+        let states = try context.fetch(FetchDescriptor<AppState>())
+        XCTAssertEqual(states.count, 2)
+        XCTAssertEqual(states.first(where: { $0.key == "primary" })?.lastQuestionID, "course-question")
+        XCTAssertEqual(
+            states.first(where: { $0.key == PracticeMode.fullQuestionBankStateKey })?.lastQuestionID,
+            "full-practice-question"
+        )
     }
 
     func testFavoriteAndNoteCanBeUpdatedWithoutDuplicates() throws {

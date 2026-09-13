@@ -56,6 +56,7 @@ enum LearningPersistence {
         questionID: String,
         selectedIndex: Int,
         correctIndex: Int,
+        mode: AnswerRecordingMode = .regular,
         in context: ModelContext,
         answeredAt: Date = .now
     ) throws {
@@ -69,11 +70,28 @@ enum LearningPersistence {
             context.insert(progress)
         }
         let previousState = MasteryState(rawValue: progress.masteryState) ?? .new
+        let wasLegacyReview = previousState == .learning
+            && progress.attemptCount > progress.correctCount
         progress.attemptCount += 1
         if selectedIndex == correctIndex {
             progress.correctCount += 1
-            if previousState == .needsReview {
-                progress.masteryState = MasteryState.learning.rawValue
+            if mode == .wrongAnswerReview, previousState.explicitlyNeedsReview || wasLegacyReview {
+                switch previousState {
+                case .needsReview:
+                    progress.masteryState = MasteryState.reviewCorrectOnce.rawValue
+                case .reviewCorrectOnce:
+                    progress.masteryState = MasteryState.reviewCorrectTwice.rawValue
+                case .learning where wasLegacyReview:
+                    progress.masteryState = MasteryState.reviewCorrectOnce.rawValue
+                case .reviewCorrectTwice:
+                    progress.masteryState = MasteryState.mastered.rawValue
+                default:
+                    progress.masteryState = MasteryState.reviewCorrectOnce.rawValue
+                }
+            } else if previousState.explicitlyNeedsReview || wasLegacyReview {
+                // 只有「錯題複習」中的連續答對會消除錯題；其他模式答對不會
+                // 偷渡累加熟練次數，避免模擬測驗或全題庫練習意外清空錯題。
+                progress.masteryState = previousState.rawValue
             } else {
                 progress.masteryState = progress.correctCount >= 2
                     ? MasteryState.mastered.rawValue
@@ -135,16 +153,17 @@ enum LearningPersistence {
 
     @MainActor
     static func saveLastQuestion(
-        questionID: String,
+        questionID: String?,
         contentVersion: String,
         appBuild: String,
+        stateKey: String = "primary",
         in context: ModelContext
     ) throws {
-        let primaryKey = "primary"
+        let primaryKey = stateKey
         let descriptor = FetchDescriptor<AppState>(
             predicate: #Predicate { $0.key == primaryKey }
         )
-        let state = try context.fetch(descriptor).first ?? AppState()
+        let state = try context.fetch(descriptor).first ?? AppState(key: stateKey)
         if state.modelContext == nil {
             context.insert(state)
         }

@@ -5,12 +5,22 @@ struct TestHubView: View {
     @EnvironmentObject private var contentStore: ContentStore
     @Query private var progress: [QuestionProgress]
     @Query private var favorites: [Favorite]
+    @Query private var appStates: [AppState]
 
     private var wrongCount: Int {
-        progress.filter { item in
-            let state = MasteryState(rawValue: item.masteryState) ?? .new
-            return state == .needsReview || (state == .learning && item.attemptCount > item.correctCount)
-        }.count
+        progress.filter(\.needsWrongAnswerReview).count
+    }
+
+    private var fullPracticeResumeText: String {
+        guard let state = appStates.first(where: { $0.key == PracticeMode.fullQuestionBankStateKey }) else {
+            return "從第 1 題開始"
+        }
+        guard let id = state.lastQuestionID,
+              let index = contentStore.questions.firstIndex(where: { $0.id == id })
+        else {
+            return "已完成一輪，可重新開始"
+        }
+        return "從第 \(index + 1) 題繼續"
     }
 
     var body: some View {
@@ -22,6 +32,38 @@ struct TestHubView: View {
                     Text("先作答，再查看正確答案、解析與來源")
                         .foregroundStyle(.secondary)
                 }
+
+                NavigationLink {
+                    PracticeView(
+                        title: "全題庫依序練習",
+                        mode: .fullQuestionBank
+                    )
+                } label: {
+                    HStack(spacing: 16) {
+                        Image("question_bank")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 64, height: 64)
+                        VStack(alignment: .leading, spacing: 6) {
+                            Text("全題庫依序練習")
+                                .font(.title3.bold())
+                                .foregroundStyle(Color.craneNeutralDark)
+                            Text("\(contentStore.questions.count) 題・不限時・固定題序與選項順序")
+                                .font(.subheadline)
+                                .foregroundStyle(.secondary)
+                            Label(fullPracticeResumeText, systemImage: "arrow.forward.circle.fill")
+                                .font(.caption.bold())
+                                .foregroundStyle(Color.cranePrimaryBlue)
+                        }
+                        Spacer()
+                        Image(systemName: "chevron.right.circle.fill")
+                            .font(.title2)
+                            .foregroundStyle(Color.cranePrimaryBlue.opacity(0.7))
+                    }
+                    .brandCard()
+                }
+                .buttonStyle(.plain)
+                .accessibilityIdentifier("testHub.fullPractice")
 
                 LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 14) {
                     NavigationLink {
@@ -81,7 +123,7 @@ struct TestHubView: View {
                     Label("測驗規則", systemImage: "info.circle.fill")
                         .font(.headline)
                         .foregroundStyle(Color.cranePrimaryBlue)
-                    Text("題庫練習在選答後立即訂正；錯題會自動加入待補強清單。模擬測驗在交卷前不顯示答案。")
+                    Text("全題庫練習依題庫原始順序且不限時，選答後立即訂正並保存續作位置；錯題連續答對 3 次才會移出，期間答錯會歸零。模擬測驗在交卷前不顯示答案。")
                         .font(.subheadline)
                         .foregroundStyle(.secondary)
                 }
@@ -164,12 +206,7 @@ struct StudyLibraryView: View {
     }
 
     private var wrongQuestionIDs: [String] {
-        progress.compactMap { item in
-            let state = MasteryState(rawValue: item.masteryState) ?? .new
-            let needsReview = state == .needsReview
-                || (state == .learning && item.attemptCount > item.correctCount)
-            return needsReview ? item.questionID : nil
-        }
+        progress.filter(\.needsWrongAnswerReview).map(\.questionID)
     }
 
     var body: some View {
@@ -189,14 +226,16 @@ struct StudyLibraryView: View {
                         title: "錯題複習",
                         ids: wrongQuestionIDs,
                         emptyTitle: "目前沒有錯題",
-                        emptySystemImage: "checkmark.circle"
+                        emptySystemImage: "checkmark.circle",
+                        mode: .wrongAnswerReview
                     )
                 case .favorites:
                     questionList(
                         title: "收藏練習",
                         ids: favorites.map(\.questionID),
                         emptyTitle: "尚未收藏題目",
-                        emptySystemImage: "star"
+                        emptySystemImage: "star",
+                        mode: .regular
                     )
                 case .notes:
                     if notes.isEmpty {
@@ -231,23 +270,36 @@ struct StudyLibraryView: View {
         title: String,
         ids: [String],
         emptyTitle: String,
-        emptySystemImage: String
+        emptySystemImage: String,
+        mode: PracticeMode
     ) -> some View {
         if ids.isEmpty {
             ContentUnavailableView(emptyTitle, systemImage: emptySystemImage)
         } else {
             Section {
                 NavigationLink {
-                    PracticeView(questionIDs: ids, title: title)
+                    PracticeView(questionIDs: ids, title: title, mode: mode)
                 } label: {
                     Label("開始練習（\(ids.count) 題）", systemImage: "play.fill")
                         .font(.headline)
                 }
             }
+            if mode == .wrongAnswerReview {
+                Section {
+                    Label("每題須連續答對 3 次；任何一次答錯都會歸零重算。", systemImage: "repeat")
+                        .font(.footnote)
+                        .foregroundStyle(.secondary)
+                }
+            }
             Section("題目") {
                 ForEach(ids, id: \.self) { id in
                     NavigationLink {
-                        PracticeView(questionIDs: ids, initialQuestionID: id, title: title)
+                        PracticeView(
+                            questionIDs: ids,
+                            initialQuestionID: id,
+                            title: title,
+                            mode: mode
+                        )
                     } label: {
                         Text(questionTitle(id)).lineLimit(3)
                     }

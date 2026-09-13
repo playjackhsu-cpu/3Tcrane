@@ -13,10 +13,7 @@ struct HomeView: View {
     private var totalAttempts: Int { progress.reduce(0) { $0 + $1.attemptCount } }
     private var totalCorrect: Int { progress.reduce(0) { $0 + $1.correctCount } }
     private var wrongCount: Int {
-        progress.filter { item in
-            let state = MasteryState(rawValue: item.masteryState) ?? .new
-            return state == .needsReview || (state == .learning && item.attemptCount > item.correctCount)
-        }.count
+        progress.filter(\.needsWrongAnswerReview).count
     }
     private var accuracy: Int {
         guard totalAttempts > 0 else { return 0 }
@@ -161,6 +158,12 @@ struct HomeView: View {
                             Label("Internal TestFlight 審查內容，尚未核准公開發行", systemImage: "person.badge.shield.checkmark")
                                 .font(.footnote.bold())
                                 .foregroundStyle(Color.craneAccentOrange)
+                        } else if let license = contentStore.package?.license,
+                                  let licenseURL = license.licenseURL {
+                            Link(destination: licenseURL) {
+                                Label(license.attribution, systemImage: "building.columns.fill")
+                            }
+                            .font(.footnote.weight(.semibold))
                         }
                     }
                     .brandCard()
@@ -739,6 +742,13 @@ struct SettingsView: View {
                         Text("學科參考資料僅供學習使用；正式答案與適用法規仍應以主管機關最新公告為準。")
                             .font(.subheadline)
                             .foregroundStyle(.secondary)
+                        if let license = contentStore.package?.license,
+                           let licenseURL = license.licenseURL {
+                            Link(destination: licenseURL) {
+                                Label("\(license.attribution)；依政府網站資料開放宣告利用", systemImage: "link")
+                            }
+                            .font(.footnote)
+                        }
                     }
                     .brandCard()
                 }
@@ -752,7 +762,7 @@ struct SettingsView: View {
     }
 
     private var appVersion: String {
-        Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "0.1.0"
+        Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "1.0.0"
     }
 
     private var buildNumber: String {

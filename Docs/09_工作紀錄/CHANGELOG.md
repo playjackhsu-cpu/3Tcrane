@@ -1,8 +1,25 @@
 # Changelog
 
+## 2026-09-14
+
+- 新增「全題庫依序練習」：不限時間、不亂數抽題、不打亂選項，完全依發行題庫陣列順序呈現；作答後立即顯示正確答案與解析，並以獨立 AppState 鍵保存下次續作位置，不覆蓋課程閱讀進度。
+- 錯題複習改為每題連續答對 3 次才移出；任何一次答錯立即把連勝歸零。一般題庫練習、全題庫練習及模擬測驗的答對不會意外累計錯題連勝或清除既有錯題。
+- 題庫內容與 983 題一般題池均未修改；學習紀錄仍保存在 App bundle 之外的 SwiftData store，新增狀態沿用既有欄位值，避免破壞既有資料 schema。
+- App Store Connect 已回讀首版 `1.0.0`（build 6）為「已可發佈」；本次更新版本規劃為 `1.0.1`（build 7）。
+- 本機最終驗證通過 17／17 unit／升級保留測試、iPhone UI 6 通過／2 項裝置條件跳過、iPad UI 7 通過／1 項裝置條件跳過，兩平台均 0 失敗；正式題庫 QA App 已在 iPhone 11 安裝並啟動。本輪 iPad 因 Xcode 回報裝置不可用，未把 USB 裝置紀錄視為實機通過。
+
 ## 2026-08-11
 
-- 完成 App Store 1.0 首發準備：建立繁體中文商店文案、96 bytes 關鍵字、宣傳文字、App Review 導覽、隱私／支援靜態頁與 GitHub Pages workflow；App Store Connect 已設定副標題、教育／參考分類、4+、不需登入、手動發布及不收集資料，價格維持 US$0.99／台灣 NT$30。未選正式建置、未按新增以供審查、未代填私密聯絡資料或接受付費合約。
+- 完成專案結案總結報告及 6 頁正式 PDF，涵蓋產品與內容成果、資料保留架構、iPhone／iPad QA、簽章與 Apple 送審、GitHub 治理、公開／私有資料分層、兩日開發歷程、剩餘工作與還原指引。
+- 建立私有 NAS 日期化封存，保存可瀏覽工作區、Git bundle、原始題庫與 UI/UX 資源、全部 `Artifacts/`、Xcode DerivedData、最終 IPA／archive、App Store 截圖、檔案清冊、SHA-256 與清理紀錄；只在驗證成功後釋放本機專案專用快取與模擬器。
+- `1.0.0`（build 6）已透過 Apple Transporter 上傳並完成處理，選入 App Store 版本；經 Owner 明確確認後，發佈 App Privacy「不收集資料」聲明、沿用既有正式審查聯絡資料並確認第三方內容必要權利。版本已提交 Apple，狀態為「正在等待審查」，核准後採手動發佈；公開文件不記錄審查聯絡人的電話或信箱。
+- PR #6 的 Governance、unit／升級保留、Release build、iPhone UI smoke 與 iPad UI smoke 已全數通過；首次 unit runner 未載入任何 iOS simulator 的暫時性失敗經單項重跑後通過，未修改程式或降低測試 gate。
+- 依 Owner 指示將 App Store 首發價格改為免費；App Store Connect 回讀 175 個國家／地區價格均為 0.00，供應地維持台灣。版本欄位同步為 `1.0.0`，發布方式維持手動；未選正式建置、未按新增以供審查，也未代填私密聯絡資料。
+- 建立可重建的正式題庫 release candidate：983 題一般抽題、17 題治理例外與 15 個題圖，公開包移除私有來源定位並寫入技能檢定中心政府網站資料開放宣告的授權連結與顯名；release JSON SHA-256 為 `7399af027135ea462811d55bdc3f91dccefaf967dca7b92065aea7cfbcaaed15`。
+- 將 App 版本升為 `1.0.0`（build 6），正式 bundle 只嵌入 release JSON 與 15 個題圖，不再攜帶合成 fixture 或私有題庫。14／14 unit／升級保留、iPhone UI 5 通過／2 跳過、iPad UI 6 通過／1 跳過、iPhone／iPad Release build 均為 0 失敗。
+- 建立 `1.0.0`（build 6）signed archive 與 App Store Connect 匯出 IPA；確認發行 entitlement、非豁免加密宣告、983／17／15 內容數量與私有標記掃描均通過。IPA SHA-256 為 `387e4760befc9c2a5605a2aed94b8ce6b5bc570af5224c07fa2c6f7f95996921`，產物維持 Git 忽略且未上傳 Apple。
+- PR #1 已於五道必要檢查全綠後合併至 `main`；GitHub Pages workflow 首次部署成功，公開 Privacy／Support URL 均回讀 HTTP 200。
+- 完成 App Store 1.0 首發準備：建立繁體中文商店文案、96 bytes 關鍵字、宣傳文字、App Review 導覽、隱私／支援靜態頁與 GitHub Pages workflow；App Store Connect 已設定副標題、教育／參考分類、4+、不需登入、手動發布及不收集資料。未選正式建置、未按新增以供審查、未代填私密聯絡資料。
 - 擷取並稽核 iPhone 6.5 吋 1284×2778 與 iPad 12.9 吋 2048×2732 商店截圖；排除顯示舊測試版號的設定頁，將課程學習、題庫測驗與學習記錄各 3 張上傳至 App Store Connect。兩種裝置均回讀為 3 張且由 Apple 自動保存；截圖原檔維持在 Git 忽略的 `Artifacts/`，未選建置版本或新增以供審查。
 - GitHub Pages workflow 的 checkout、configure-pages、upload-pages-artifact 與 deploy-pages 均以官方現行主要版本 commit SHA 固定，並以 `main`／`Site/**` 為唯一自動部署來源。
 - 本次提交前通過公開倉庫 gate、文件連結與 whitespace 檢查、14／14 unit／升級保留測試、無簽章 Universal Release build，以及 iPhone UI 5 通過／2 項裝置條件跳過、iPad UI 6 通過／1 項裝置條件跳過；兩平台均為 0 失敗。

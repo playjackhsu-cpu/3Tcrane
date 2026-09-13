@@ -1,5 +1,13 @@
 # Private question-bank intake tools
 
+正式發行候選由 `build_release_question_bank.py` 從私有完整清冊與 17 題排除清單產生；輸出為 `Content/Releases/question-bank.release.json` 與去除私有定位的題圖資產。腳本會拒絕把官方刪題、明顯答案衝突或法規過渡題放進 983 題一般抽題池，並寫入公開授權顯名資料。
+
+```bash
+python3 Scripts/content/build_release_question_bank.py --content-version 1.0.0
+```
+
+產生後仍須執行公開題庫驗證、iPhone／iPad build、升級保留測試與 Owner 發布 gate。
+
 此處工具只處理私有題庫證據，不會產生正式 App 題庫。
 
 ## OCR

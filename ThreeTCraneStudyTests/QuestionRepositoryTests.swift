@@ -60,6 +60,23 @@ final class QuestionRepositoryTests: XCTestCase {
         }
     }
 
+    func testQuestionArrayOrderIsPreservedExactlyAsBundled() throws {
+        var object = try syntheticPackageObject()
+        let questions = try XCTUnwrap(object["questions"] as? [[String: Any]])
+        let reversed = Array(questions.reversed())
+        object["questions"] = reversed
+
+        let package = try BundleQuestionRepository.decodeAndValidate(
+            JSONSerialization.data(withJSONObject: object)
+        )
+
+        XCTAssertEqual(
+            package.questions.map(\.id),
+            reversed.compactMap { $0["id"] as? String },
+            "全題庫依序練習必須完全保留題庫檔案中的題目排列。"
+        )
+    }
+
     func testReviewExceptionDecodesWithReasonAndReviewedAnswer() throws {
         var object = try syntheticPackageObject()
         object["reviewExceptions"] = [syntheticReviewException(id: "fixture-excluded-001")]

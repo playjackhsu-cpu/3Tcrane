@@ -2,7 +2,7 @@
 title: App Store 上架文案
 tags: [apple, app-store, metadata, listing]
 status: release-candidate
-updated: 2026-08-11
+updated: 2026-09-14
 ---
 
 # App Store 上架文案
@@ -18,8 +18,7 @@ updated: 2026-08-11
 | 主要類別 | 教育 | 與學習用途一致 |
 | 次要類別 | 參考 | 題庫與法規參考 |
 | 首發地區 | 台灣 | 只提供繁體中文 |
-| 美國基準價格 | US$0.99 | 已建立價格時程 |
-| 台灣售價 | NT$30 | Apple 依價格點換算 |
+| 價格 | 免費 | App Store Connect 175 個國家／地區價格均為 0.00；首發供應地仍為台灣 |
 | Copyright | © 2026 TaurusWinner. All rights reserved. | 草案；送審前由 Owner 確認權利主體 |
 | 發布方式 | 手動發布 | App Review 通過後仍需 Owner 核准 |
 
@@ -45,7 +44,8 @@ UTF-8 共 96 bytes，低於 Apple 的 100 bytes 上限；包含「固定式起�
 主要功能
 • 課程學習：依科目與章節固定順序閱讀題目、答案、解析、另解與公開來源，不必先作答，也不會污染作答統計。
 • 題庫練習：選答後立即判定，建立個人練習紀錄。
-• 錯題複習：集中重做答錯的題目，逐步追蹤熟練狀態。
+• 全題庫依序練習：不限時間，完全依題庫原始題序與選項順序作答；離開後會保存目前位置，選答後立即顯示正確答案與解析。
+• 錯題複習：集中重做答錯的題目；每題須連續答對 3 次才會移出，中途答錯即歸零重新計算。
 • 模擬測驗：提供 80 題／100 分鐘正式模式，以及 10 題／10 分鐘快速測驗。
 • 收藏與筆記：標記重點，在裝置內建立自己的複習資料。
 • iPhone 與 iPad：同一套學習內容支援手機和平板，並提供明亮與暗色模式。
@@ -67,9 +67,10 @@ This app does not require an account, sign-in, subscription, in-app purchase, or
 
 Suggested review path:
 1. Open 課程 and select a chapter to read questions, answers, explanations, alternate explanations, and public sources without changing answer statistics.
-2. Open 測驗 > 題庫練習 to answer questions with immediate feedback.
-3. Open 測驗 > 模擬測驗 to try the 10-question quick mode. The 80-question mode follows the fixed-crane skill-test composition and has a 100-minute timer.
-4. Open 首頁 > 官方題庫例外審查 to expand the separately governed deleted, disputed, and legal-transition items. These items are excluded from normal random selection.
+2. Open 測驗 > 全題庫依序練習. This untimed mode preserves the bundled question and option order, shows the correct answer and explanation immediately, and saves the next position locally.
+3. Answer a question incorrectly, then open 測驗 > 錯題複習. A wrong item is removed only after three consecutive correct answers in wrong-answer review; any incorrect answer resets the streak to zero.
+4. Open 測驗 > 模擬測驗 to try the 10-question quick mode. The 80-question mode follows the fixed-crane skill-test composition and has a 100-minute timer.
+5. Open 首頁 > 官方題庫例外審查 to expand the separately governed deleted, disputed, and legal-transition items. These items are excluded from normal random selection.
 
 The app is an independent study tool and is not affiliated with or endorsed by Taiwan's Ministry of Labor or Skills Evaluation Center. It does not replace legally required training or practical operation.
 ```
@@ -80,6 +81,12 @@ Review 聯絡人姓名、電話與 Email 屬 App Store Connect 私密欄位；�
 
 ```text
 首個正式版本：提供固定式起重機操作單一級技能檢定的課程閱讀、題庫練習、錯題複習、收藏筆記、學習紀錄與正式／快速模擬測驗。題庫內建、可離線使用，學習紀錄與 App 內容分開保存。
+```
+
+## What's New（1.0.1）
+
+```text
+新增全題庫依序練習：不限時間，題目與選項完全依內建題庫原始順序呈現，並保存下次續作位置；作答後立即顯示正確答案與解析。錯題複習改為每題連續答對 3 次才移出，中途答錯會歸零重新計算。既有進度、錯題、收藏、筆記與測驗紀錄均保留。
 ```
 
 ## URL
@@ -94,13 +101,12 @@ URL 只能在 GitHub Pages workflow 合併、部署且以未登入瀏覽器驗�
 
 - 不寫「官方 App」、「官方授權」或「保證通過」。
 - 不寫「即時同步官方題庫」或「App 內自動下載題庫」。
-- 不把 983 題 Internal TestFlight 候選內容描述為已取得正式公開發行權。
+- 不把 `official-reference-reviewed` 描述為官方認證、正式測試答案或逐題獨立技術驗證。
 - 不宣稱 App 能取代訓練、證照、實機操作、安全程序或主管機關公告。
 
 ## 送審前 Owner gate
 
-1. 完成 Paid Applications Agreement、稅務與銀行資料；這些是法律及財務行為，不由自動化代為同意。
-2. 書面確認正式發行題庫及題圖的重製／散布權，並保留證據；未完成時 Content Rights 不得勾選為已具權利。
-3. 以正式 release candidate binary 重做內容、隱私、年齡分級、升級保留、iPhone／iPad 與無障礙 QA。
-4. 提供 App Review 私密聯絡人姓名、電話與 Email。
-5. 明確核准「加入以供審查」及 App Review 通過後的手動發布。
+1. 依 [[Docs/04_題庫與內容/官方題庫授權評估]] 回讀顯名、非背書與特別權利排除條件，再由 Owner 完成 App Store Content Rights 最終確認。
+2. 以正式 release candidate binary 重做內容、隱私、年齡分級、升級保留、iPhone／iPad 與無障礙 QA。
+3. 提供 App Review 私密聯絡人姓名、電話與 Email。
+4. 明確核准「加入以供審查」及 App Review 通過後的手動發布。
