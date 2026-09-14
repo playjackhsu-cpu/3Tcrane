@@ -12,7 +12,7 @@ updated: 2026-09-14
 - 錯題複習已改為連續答對 3 次才自動移出；中途答錯即歸零重算，且其他練習模式答對不會偷渡累計錯題連勝。
 - 資料層 17 項單元／升級保留測試均已通過；iPhone／iPad 完整 UI 回歸均為 0 失敗，新增模式已確認題庫第 1 題、無計時、固定順序與即時回饋。
 - `1.0.1`（build 7）獨立 Bundle ID 的正式題庫 QA App 已在連接的 iPhone 11 完成安裝與前景啟動；本輪 iPad 雖有 USB 裝置紀錄但 Xcode 回報不可用，因此只採已通過的完整 iPad simulator 回歸，不宣稱本輪 iPad 實機通過。
-- App Store Connect 已於 2026-09-14 回讀首版 `1.0.0`（build 6）狀態為「已可發佈」；功能更新使用 `1.0.1`（build 7）準備封裝，首版尚未執行手動公開發佈。
+- App Store Connect 已於 2026-09-14 回讀首版 `1.0.0`（build 6）狀態為「已可發佈」，定價與供應狀況顯示已在台灣 1 個地區供應；`1.0.1`（build 7）已於 07:42 送達 Apple 並完成處理，07:48 正式提交 App Review，目前狀態為「正在等待審查」。
 
 - 盤點空白 3Tcrane workspace、Taiwan_Wtsbot 架構與「設計污水檢定複習系統06」權威摘要。
 - 盤點本機 Xcode／Swift／Git／simulator 與空 GitHub 遠端。
@@ -75,7 +75,7 @@ updated: 2026-09-14
 - 已建立 App Store 正式題庫 release candidate：內容版 `0.2.1`，983 題一般抽題、17 題治理例外（8／5／4）與 15 個題圖；每題保留公開來源及官方參考答案審查狀態，公開包移除私有頁碼、掃描來源與內部路徑，並加入技能檢定中心政府網站資料開放宣告之顯名與授權連結。發行包 SHA-256 為 `7399af027135ea462811d55bdc3f91dccefaf967dca7b92065aea7cfbcaaed15`。
 - App Store `1.0.0`（build 6）發行候選 QA 通過：14／14 unit／升級保留測試、iPhone UI 5 通過／2 項裝置條件跳過、iPad UI 6 通過／1 項裝置條件跳過、iPhone／iPad Release build 均成功，兩平台 0 失敗。正式 bundle 回讀為版本 `1.0.0`、build `6`、983 題、17 題例外、15 個題圖，且只含正式題庫 JSON、不含合成或私有題庫。
 - 已建立 `1.0.0`（build 6）本機 signed archive 與 App Store Connect 匯出 IPA；重新簽章後回讀 `get-task-allow=false`、`beta-reports-active=true`、`ITSAppUsesNonExemptEncryption=false`，內容與私有標記掃描通過。IPA SHA-256 為 `387e4760befc9c2a5605a2aed94b8ce6b5bc570af5224c07fa2c6f7f95996921`；archive／IPA 只保存在 Git 忽略的 `Artifacts/`。
-- `1.0.0`（build 6）已透過 Apple Transporter 上傳並完成處理，選入 App Store 版本後由 Owner 確認審查聯絡資料、App Privacy「不收集資料」聲明及第三方內容必要權利。版本已正式提交 Apple，App Store Connect 狀態為「正在等待審查」；核准後仍採手動發佈。
+- `1.0.0`（build 6）已透過 Apple Transporter 上傳、完成審查並在台灣 App Store 供應；App Privacy 維持「不收集資料」，不需登入且無廣告或追蹤 SDK。
 
 - 已完成 [[Docs/09_工作紀錄/PROJECT_CLOSEOUT|專案結案總結報告]]，彙整產品範圍、983／17 題內容治理、架構與學習紀錄保留、雙平台 QA、簽章發行證據、Apple／GitHub 狀態、公開與私有邊界、歷程、待辦及還原順序；正式 PDF 保存於 Git 忽略的 `output/pdf/` 並納入私有 NAS 封存。
 - 已建立日期化的私有 NAS 結案封存：可直接瀏覽的完整工作區不含 `.git` 與可重建快取，另保存所有 Git refs 的 bundle、完整 `Artifacts/`、Xcode DerivedData、PDF 中間檔、build 6 發行成品、App Store 截圖、清冊、SHA-256 與清理紀錄。封存驗證成功後，只清理本機 3Tcrane 專用快取及模擬器，不影響正式 archive／IPA、原始題庫、文件或其他專案。
@@ -86,11 +86,11 @@ updated: 2026-09-14
 - UI 已完成 iPhone／iPad 核心流程、iPad 比例與 Dark 模式的模擬器檢查；尚未完成 High Contrast、Dynamic Type、VoiceOver、橫向／多工與多款實機完整驗證。
 - 已確認指定 `origin` 的 GitHub SSH 驗證可用；PR #1 已合併至 `main`，`Protect main` Ruleset 與五道必要檢查維持啟用，GitHub Pages 已完成部署。GitHub security 的額外選配項目仍可後續強化，但不影響目前 PR gate。
 - Internal TestFlight build 5 已上線；群組目前有 2 位測試人員。其餘 3 位指定聯絡人仍須具備 App Store Connect 帳號、正確姓／名與合格角色後，才能以最低必要權限完成邀請；10 人規劃仍有 5 個未指定名額。
-- 隱私權政策／支援 URL 已部署並可公開讀取；build 6 上傳、選版、App Review 聯絡資料、App Privacy 發佈、Content Rights 確認及正式提交均已完成。目前只需等待 Apple 審查結果，核准後由 Owner 執行手動發佈。
+- 隱私權政策／支援 URL 已部署並可公開讀取；`1.0.0`（build 6）已在台灣供應。`1.0.1`（build 7）的上傳處理、選版、更新說明、App Review 導覽與正式提交均已完成，目前等待 Apple 審查；核准後仍由 Owner 執行手動發佈。
 
 ## 下一個可執行工作
 
-完成 `1.0.1`（build 7）公開倉庫 PR 必要檢查、signed archive 與發行包稽核；公開 `1.0.0` 後建立 1.0.1 商店版本、上傳並送審。
+監看 `1.0.1`（build 7）App Review 狀態；Apple 核准後依既定治理由 Owner 執行手動發佈，並在發佈後驗證 App Store 公開版本與更新保留行為。
 
 ## 不可遺忘
 
