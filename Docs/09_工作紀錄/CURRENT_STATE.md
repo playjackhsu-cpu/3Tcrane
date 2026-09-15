@@ -10,11 +10,13 @@ updated: 2026-09-15
 
 - `1.0.2` build 8 已於 18:34 透過 Apple Transporter 傳送完成，App Store Connect 已處理並列入既有內部測試群組；[PR #9](https://github.com/playjackhsu-cpu/3Tcrane/pull/9) 五項必要 CI 通過後 squash merge 至 `main`（`14823e6`）。Build 8 尚未正式送審，也尚未公開發佈。
 - 使用者於 Build 8 上傳後變更錯題規則：錯題複習首次答對 1 次即移出；若在錯題複習中答錯，改須連續答對 2 次，中途再答錯重算。舊版已答對 1／2 次的錯題立即從待複習清單移出，原作答紀錄不得刪除。
-- 本次規則以既有 `masteryState` 欄位新增狀態值，不改 SwiftData schema；新增單元／永久 store 重開測試、iPhone 與 iPad 各三個定向 UI 回歸已通過，公開資料 gate 與文件連結亦通過。新規則未包含於 Build 8；候選版本定為 `1.0.2` build 9，仍須完整 QA／PR／CI、簽章發行包稽核、Apple 上傳與送審回讀，不能把 Build 8 當成最新規則的正式版本。
+- 本次規則以既有 `masteryState` 欄位新增狀態值，不改 SwiftData schema；完整 unit／升級保留測試、iPhone 與 iPad 各三個定向 UI 回歸已通過。`1.0.2` build 9 發行包稽核：983 題一般題、17 題治理例外、無合成或私有輸入、App Store 簽章有效且 `get-task-allow=false`；IPA SHA-256 `bfd78ba8eae37fd8d43768cb23a1c763f180cb2a948bc0ed58c52ca241b078fb`。
+- Build 9 已於 19:06 由 Apple Transporter 傳送並完成 Apple 處理；19:12 選入 `1.0.2` 正式版本且提交 App Review。Apple [提交明細](https://appstoreconnect.apple.com/apps/6800202357/distribution/reviewsubmissions/details/af37fd95-e211-4a1b-bd59-0d0af293ccaa)回讀 `1.0.2 (9)` 為「等待審查」，提交 ID `af37fd95-e211-4a1b-bd59-0d0af293ccaa`。已確認免費、僅台灣 1 個地區供應，核准後手動發佈；尚未公開上架，Build 7／8 均未手動發佈。
+- [PR #10](https://github.com/playjackhsu-cpu/3Tcrane/pull/10) 的公開資料、Release build、unit／升級保留、iPhone UI、iPad UI 五道 CI 全數通過，19:24 squash merge 至 `main`（`1e5772b`）；遠端 `main` 與送審 Build 9 候選的檔案內容一致。使用者明確指示先送審、PR／CI 後補；發行次序與回執已留在 PR，公開倉庫未納入聯絡個資或簽章資料。
 
 ## 2026-09-15 錯題複習跳題修正
 
-- [PR #8](https://github.com/playjackhsu-cpu/3Tcrane/pull/8) 五項必要 CI 全綠，經 Owner 本次送審上架指示於 PR 留存發版核准紀錄後 squash merge 至 `main`（`330b8cc`）。App Store Connect 現行回讀：`1.0.1` build 7 已核准、待手動發佈，仍不含本修正；已建立 `1.0.2` 準備提交版本。修正版發行候選改用 `1.0.2` build 8；未完成 build 8 上傳、審查回讀前，不宣稱已公開發佈。
+- [PR #8](https://github.com/playjackhsu-cpu/3Tcrane/pull/8) 五項必要 CI 全綠，經 Owner 本次送審上架指示於 PR 留存發版核准紀錄後 squash merge 至 `main`（`330b8cc`）。`1.0.1` build 7 已核准、待手動發佈，仍不含本修正；其後以 `1.0.2` build 8 上傳內部測試，再因錯題規則變更改以 build 9 正式送審。Build 7／8 均不宣稱已公開發佈。
 - 使用者實機影片確認：錯題複習點選答案後，上層 SwiftData 錯題清單立即重新排序，作答頁使用變動陣列的 `currentIndex`，導致同一索引指向另一題、回饋與解析錯配。
 - 作答頁現在於進入時固定本輪題目 ID 快照；作答、連勝重置、第三次答對移除錯題，都保留原題與原題解析，只有明確按「下一題／上一題」才切換。
 - 以僅使用記憶體 store 的 UI 種子重現清單重排及第三次答對移除。兩個情境在 iPhone、iPad simulator 各 2／2 通過；既有 17／17 資料與升級保留測試通過。題庫內容、答案、學習資料 schema 均未修改。

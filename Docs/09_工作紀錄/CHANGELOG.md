@@ -1,5 +1,7 @@
 # Changelog
 
+- 2026-09-15：`1.0.2` build 9 簽章發行包稽核通過，19:06 由 Apple Transporter 傳送，Apple 完成處理後綁定 App Store 正式版本；19:12 提交 App Review，回讀「等待審查」。免費、台灣 1 地供應、核准後手動發佈；尚未公開上架。送審回執與 IPA SHA-256 見 `CURRENT_STATE.md`。
+- 2026-09-15：[PR #10](https://github.com/playjackhsu-cpu/3Tcrane/pull/10) 五道必要 CI 全數通過後於 19:24 squash merge 至 `main`（`1e5772b`），遠端 `main` 檔案內容與 Build 9 發行候選一致。依使用者指示採先 Apple 送審、後補 PR／CI 次序，並保留公開資料稽核與本地裝置尺寸回歸證據。
 - 2026-09-15：`1.0.2` build 8 已傳送 Apple 並完成處理，[PR #9](https://github.com/playjackhsu-cpu/3Tcrane/pull/9) 五項 CI 通過後合併（`14823e6`）；尚未送審／公開。因使用者隨後調整錯題規則，新規則另做 QA 與後續 build，不以 build 8 冒充最新版本。
 - 2026-09-15：錯題複習改為首次答對 1 次移出；在錯題複習中答錯後須連續答對 2 次，再答錯歸零。舊版已答對 1／2 次的錯題升級後移出清單但保留完整作答紀錄；沿用既有 SwiftData schema，補永久 store 重開與回歸測試。
 - 2026-09-15：錯題複習跳題修正經 [PR #8](https://github.com/playjackhsu-cpu/3Tcrane/pull/8) 五項必要 CI 通過並 squash merge（`330b8cc`）；Apple 已核准但未手動發佈的 `1.0.1` build 7 不含修正。建立 `1.0.2` App Store 準備提交紀錄，將修正版候選升為 build 8，待 signed archive、發行包稽核、上傳與 Apple 審查回讀。
