@@ -1,5 +1,6 @@
 # Changelog
 
+- 2026-09-15：錯題複習跳題修正經 [PR #8](https://github.com/playjackhsu-cpu/3Tcrane/pull/8) 五項必要 CI 通過並 squash merge（`330b8cc`）；Apple 已核准但未手動發佈的 `1.0.1` build 7 不含修正。建立 `1.0.2` App Store 準備提交紀錄，將修正版候選升為 build 8，待 signed archive、發行包稽核、上傳與 Apple 審查回讀。
 ## 2026-09-15
 
 - 修正錯題複習作答後跳題：複習頁固定進入時的題目 ID 快照，不再讓 SwiftData 即時重排／移除的上層清單改變目前題幹、選項或解析；按下一題才依尚待複習的題目切換。
