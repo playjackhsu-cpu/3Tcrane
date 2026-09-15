@@ -82,7 +82,7 @@ struct PracticeView: View {
                 ContentUnavailableView {
                     Label("錯題複習完成", systemImage: "checkmark.seal.fill")
                 } description: {
-                    Text("這次清單中的錯題都已連續答對 3 次，已自動移出錯題複習。")
+                    Text("這次清單中的錯題已依答對紀錄移出錯題複習。")
                 }
             } else if let question {
                 ScrollView {
@@ -137,8 +137,10 @@ struct PracticeView: View {
                             if mode == .wrongAnswerReview, let currentProgress {
                                 Label(
                                     currentProgress.needsWrongAnswerReview
-                                        ? "連續答對 \(currentProgress.wrongAnswerReviewStreak)／3 次"
-                                        : "已連續答對 3 次，將移出錯題複習",
+                                        ? (currentProgress.requiresTwoCorrectReviews
+                                            ? "連續答對 \(currentProgress.wrongAnswerReviewStreak)／2 次"
+                                            : "答對 1 次即可移出錯題複習")
+                                        : "答對後將移出錯題複習",
                                     systemImage: currentProgress.needsWrongAnswerReview
                                         ? "repeat.circle"
                                         : "checkmark.seal.fill"

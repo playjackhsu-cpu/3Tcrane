@@ -25,7 +25,7 @@ final class LearningPersistenceUpgradeTests: XCTestCase {
         XCTAssertEqual(records.map(\.questionID), ["retired-question"])
     }
 
-    func testWrongAnswerRequiresThreeConsecutiveCorrectReviewsAndWrongResetsStreak() throws {
+    func testWrongReviewFirstCorrectClearsAndReviewMistakeRequiresTwoConsecutiveCorrect() throws {
         let container = try LearningPersistence.makeContainer(inMemory: true)
         let context = container.mainContext
 
@@ -47,8 +47,27 @@ final class LearningPersistenceUpgradeTests: XCTestCase {
             in: context
         )
         progress = try XCTUnwrap(context.fetch(FetchDescriptor<QuestionProgress>()).first)
-        XCTAssertEqual(progress.masteryState, MasteryState.reviewCorrectOnce.rawValue)
-        XCTAssertEqual(progress.wrongAnswerReviewStreak, 1)
+        XCTAssertEqual(progress.masteryState, MasteryState.mastered.rawValue)
+        XCTAssertFalse(progress.needsWrongAnswerReview)
+
+        // 再次答錯會重新進錯題池；在錯題複習內答錯後須連勝兩次。
+        try LearningPersistence.recordAnswer(
+            questionID: "fixture-choice-001",
+            selectedIndex: 1,
+            correctIndex: 0,
+            in: context
+        )
+        try LearningPersistence.recordAnswer(
+            questionID: "fixture-choice-001",
+            selectedIndex: 2,
+            correctIndex: 0,
+            mode: .wrongAnswerReview,
+            in: context
+        )
+        progress = try XCTUnwrap(context.fetch(FetchDescriptor<QuestionProgress>()).first)
+        XCTAssertEqual(progress.masteryState, MasteryState.reviewRecoveryNeeded.rawValue)
+        XCTAssertTrue(progress.requiresTwoCorrectReviews)
+        XCTAssertEqual(progress.wrongAnswerReviewStreak, 0)
 
         try LearningPersistence.recordAnswer(
             questionID: "fixture-choice-001",
@@ -58,8 +77,9 @@ final class LearningPersistenceUpgradeTests: XCTestCase {
             in: context
         )
         progress = try XCTUnwrap(context.fetch(FetchDescriptor<QuestionProgress>()).first)
-        XCTAssertEqual(progress.masteryState, MasteryState.reviewCorrectTwice.rawValue)
-        XCTAssertEqual(progress.wrongAnswerReviewStreak, 2)
+        XCTAssertEqual(progress.masteryState, MasteryState.reviewRecoveryCorrectOnce.rawValue)
+        XCTAssertEqual(progress.wrongAnswerReviewStreak, 1)
+        XCTAssertTrue(progress.needsWrongAnswerReview)
 
         try LearningPersistence.recordAnswer(
             questionID: "fixture-choice-001",
@@ -69,10 +89,10 @@ final class LearningPersistenceUpgradeTests: XCTestCase {
             in: context
         )
         progress = try XCTUnwrap(context.fetch(FetchDescriptor<QuestionProgress>()).first)
-        XCTAssertEqual(progress.masteryState, MasteryState.needsReview.rawValue)
+        XCTAssertEqual(progress.masteryState, MasteryState.reviewRecoveryNeeded.rawValue)
         XCTAssertEqual(progress.wrongAnswerReviewStreak, 0)
 
-        for expectedStreak in 1...3 {
+        for expectedStreak in 1...2 {
             try LearningPersistence.recordAnswer(
                 questionID: "fixture-choice-001",
                 selectedIndex: 0,
@@ -81,10 +101,45 @@ final class LearningPersistenceUpgradeTests: XCTestCase {
                 in: context
             )
             progress = try XCTUnwrap(context.fetch(FetchDescriptor<QuestionProgress>()).first)
-            XCTAssertEqual(progress.wrongAnswerReviewStreak, expectedStreak)
+            if expectedStreak == 1 {
+                XCTAssertEqual(progress.wrongAnswerReviewStreak, 1)
+            }
         }
         XCTAssertEqual(progress.masteryState, MasteryState.mastered.rawValue)
         XCTAssertFalse(progress.needsWrongAnswerReview)
+    }
+
+    func testExistingOneOrTwoCorrectReviewsDisappearAfterReopenWithoutDeletingRecords() throws {
+        let testDirectory = FileManager.default.temporaryDirectory
+            .appendingPathComponent("3tcrane-review-upgrade-\(UUID().uuidString)", isDirectory: true)
+        try FileManager.default.createDirectory(at: testDirectory, withIntermediateDirectories: true)
+        let storeURL = testDirectory.appendingPathComponent("LearningStore.store")
+        defer { try? FileManager.default.removeItem(at: testDirectory) }
+
+        do {
+            let container = try LearningPersistence.makeContainer(storeURL: storeURL)
+            let context = container.mainContext
+            context.insert(QuestionProgress(
+                questionID: "old-correct-once", attemptCount: 2, correctCount: 1,
+                masteryState: MasteryState.reviewCorrectOnce.rawValue
+            ))
+            context.insert(QuestionProgress(
+                questionID: "old-correct-twice", attemptCount: 3, correctCount: 2,
+                masteryState: MasteryState.reviewCorrectTwice.rawValue
+            ))
+            context.insert(QuestionProgress(
+                questionID: "old-unreviewed", attemptCount: 1, correctCount: 0,
+                masteryState: MasteryState.needsReview.rawValue
+            ))
+            try context.save()
+        }
+
+        let reopened = try LearningPersistence.makeContainer(storeURL: storeURL)
+        let records = try reopened.mainContext.fetch(FetchDescriptor<QuestionProgress>())
+        XCTAssertEqual(records.count, 3)
+        XCTAssertEqual(Set(records.filter(\.needsWrongAnswerReview).map(\.questionID)), ["old-unreviewed"])
+        XCTAssertEqual(records.first(where: { $0.questionID == "old-correct-once" })?.correctCount, 1)
+        XCTAssertEqual(records.first(where: { $0.questionID == "old-correct-twice" })?.correctCount, 2)
     }
 
     func testRegularCorrectAnswerDoesNotAdvanceWrongAnswerReviewStreak() throws {
