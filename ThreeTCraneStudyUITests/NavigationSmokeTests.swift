@@ -51,6 +51,51 @@ final class NavigationSmokeTests: XCTestCase {
         XCTAssertTrue(app.buttons["practice.next"].waitForExistence(timeout: 2))
     }
 
+    func testWrongReviewAnswerKeepsTheSameQuestionWhenLiveListReorders() throws {
+        let app = launchInTestHub(extraArguments: ["-ui-seed-wrong-review-reorder"])
+        app.buttons["testHub.wrong"].tap()
+
+        let firstQuestion = "測量鋼索直徑精確尺寸時應選擇"
+        let questionRow = app.staticTexts[firstQuestion]
+        XCTAssertTrue(questionRow.waitForExistence(timeout: 5))
+        questionRow.tap()
+
+        let prompt = app.staticTexts["practice.prompt"]
+        XCTAssertTrue(prompt.waitForExistence(timeout: 5))
+        XCTAssertEqual(prompt.label, firstQuestion)
+
+        // 原答案是選項 2；選錯後這題的 lastAnsweredAt 變成最新，
+        // 上層錯題清單會立即重排，作答頁仍必須顯示本題與本題解析。
+        app.buttons["practice.option.0"].tap()
+        XCTAssertTrue(app.staticTexts["答錯了"].waitForExistence(timeout: 5))
+        XCTAssertEqual(prompt.label, firstQuestion)
+        XCTAssertTrue(app.staticTexts["游標卡尺"].exists)
+        XCTAssertTrue(app.staticTexts["連續答對 0／3 次"].exists)
+        XCTAssertTrue(app.buttons["practice.next"].exists)
+    }
+
+    func testWrongReviewThirdCorrectAnswerKeepsFeedbackUntilNextIsPressed() throws {
+        let app = launchInTestHub(extraArguments: ["-ui-seed-wrong-review-removal"])
+        app.buttons["testHub.wrong"].tap()
+
+        let firstQuestion = "測量鋼索直徑精確尺寸時應選擇"
+        let questionRow = app.staticTexts[firstQuestion]
+        XCTAssertTrue(questionRow.waitForExistence(timeout: 5))
+        questionRow.tap()
+        let prompt = app.staticTexts["practice.prompt"]
+        XCTAssertTrue(prompt.waitForExistence(timeout: 5))
+        XCTAssertEqual(prompt.label, firstQuestion)
+
+        app.buttons["practice.option.1"].tap()
+        XCTAssertTrue(app.staticTexts["答對了"].waitForExistence(timeout: 5))
+        XCTAssertEqual(prompt.label, firstQuestion)
+        XCTAssertTrue(app.staticTexts["已連續答對 3 次，將移出錯題複習"].exists)
+        XCTAssertTrue(app.staticTexts["游標卡尺"].exists)
+
+        app.buttons["practice.next"].tap()
+        XCTAssertNotEqual(prompt.label, firstQuestion)
+    }
+
     func testCanCreateLocalQuestionNote() throws {
         let app = launchInTestHub()
         app.buttons["testHub.practice"].tap()
@@ -188,9 +233,9 @@ final class NavigationSmokeTests: XCTestCase {
         add(screenshot)
     }
 
-    private func launchInTestHub() -> XCUIApplication {
+    private func launchInTestHub(extraArguments: [String] = []) -> XCUIApplication {
         let app = XCUIApplication()
-        app.launchArguments = ["-ui-testing"]
+        app.launchArguments = ["-ui-testing"] + extraArguments
         app.launch()
 
         let phonePractice = app.tabBars.buttons["測驗"]
