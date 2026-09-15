@@ -10,8 +10,34 @@ struct ThreeTCraneStudyApp: App {
     init() {
         _contentStore = StateObject(wrappedValue: ContentStore())
         do {
-            let isUITesting = ProcessInfo.processInfo.arguments.contains("-ui-testing")
-            modelContainer = try LearningPersistence.makeContainer(inMemory: isUITesting)
+            let launchArguments = ProcessInfo.processInfo.arguments
+            let isUITesting = launchArguments.contains("-ui-testing")
+            let container = try LearningPersistence.makeContainer(inMemory: isUITesting)
+            let seedsReviewReorder = launchArguments.contains("-ui-seed-wrong-review-reorder")
+            let seedsReviewRemoval = launchArguments.contains("-ui-seed-wrong-review-removal")
+            if isUITesting && (seedsReviewReorder || seedsReviewRemoval) {
+                // 僅在記憶體測試 store 建立兩題錯題：第二題較新，作答第一題時
+                // @Query 會重新排序或移除，藉此驗證畫面仍停留在作答的原題。
+                let context = container.mainContext
+                context.insert(QuestionProgress(
+                    questionID: "crane-06100-w01-q001",
+                    attemptCount: seedsReviewRemoval ? 3 : 1,
+                    correctCount: seedsReviewRemoval ? 2 : 0,
+                    lastAnsweredAt: .now.addingTimeInterval(-120),
+                    masteryState: seedsReviewRemoval
+                        ? MasteryState.reviewCorrectTwice.rawValue
+                        : MasteryState.needsReview.rawValue
+                ))
+                context.insert(QuestionProgress(
+                    questionID: "crane-06100-w01-q002",
+                    attemptCount: 1,
+                    correctCount: 0,
+                    lastAnsweredAt: .now.addingTimeInterval(-60),
+                    masteryState: MasteryState.needsReview.rawValue
+                ))
+                try context.save()
+            }
+            modelContainer = container
             persistenceError = nil
         } catch {
             modelContainer = nil

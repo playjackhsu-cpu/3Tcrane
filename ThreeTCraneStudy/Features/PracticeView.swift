@@ -26,6 +26,7 @@ struct PracticeView: View {
     @State private var isEditingNote = false
     @State private var noteDraft = ""
     @State private var isReviewComplete = false
+    @State private var sessionQuestionIDs: [String]?
     let questionIDs: [String]?
     let initialQuestionID: String?
     let title: String
@@ -41,11 +42,14 @@ struct PracticeView: View {
         self.initialQuestionID = initialQuestionID
         self.title = title
         self.mode = mode
+        // 錯題清單的 SwiftData Query 會在作答後重新排序或移除題目。
+        // 複習頁必須沿用進入時的題目快照，否則同一 currentIndex 會指向別題。
+        _sessionQuestionIDs = State(initialValue: questionIDs)
     }
 
     private var questions: [StudyQuestion] {
-        guard let questionIDs else { return contentStore.questions }
-        return questionIDs.compactMap(contentStore.question(id:))
+        guard let sessionQuestionIDs else { return contentStore.questions }
+        return sessionQuestionIDs.compactMap(contentStore.question(id:))
     }
 
     private var question: StudyQuestion? {

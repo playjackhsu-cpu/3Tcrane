@@ -1,10 +1,17 @@
 ---
 title: Current State
 tags: [checkpoint, current-state]
-updated: 2026-09-14
+updated: 2026-09-15
 ---
 
-# Current State — 2026-09-14
+# Current State — 2026-09-15
+
+## 2026-09-15 錯題複習跳題修正
+
+- 使用者實機影片確認：錯題複習點選答案後，上層 SwiftData 錯題清單立即重新排序，作答頁使用變動陣列的 `currentIndex`，導致同一索引指向另一題、回饋與解析錯配。
+- 作答頁現在於進入時固定本輪題目 ID 快照；作答、連勝重置、第三次答對移除錯題，都保留原題與原題解析，只有明確按「下一題／上一題」才切換。
+- 以僅使用記憶體 store 的 UI 種子重現清單重排及第三次答對移除。兩個情境在 iPhone、iPad simulator 各 2／2 通過；既有 17／17 資料與升級保留測試通過。題庫內容、答案、學習資料 schema 均未修改。
+- 已提交審查的 `1.0.1`（build 7）不含本修正；在修正版完成 PR／CI、發行封裝與 Apple 回讀前，不得把此修正稱為已在 TestFlight 或 App Store 上線，也不應手動發布 build 7。
 
 ## 已完成
 
