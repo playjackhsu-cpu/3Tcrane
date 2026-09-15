@@ -7,11 +7,13 @@ enum MasteryState: String {
     case needsReview = "needs-review"
     case reviewCorrectOnce = "review-correct-1"
     case reviewCorrectTwice = "review-correct-2"
+    case reviewRecoveryNeeded = "review-recovery-needed"
+    case reviewRecoveryCorrectOnce = "review-recovery-correct-1"
     case mastered
 
     var reviewCorrectStreak: Int {
         switch self {
-        case .reviewCorrectOnce: 1
+        case .reviewCorrectOnce, .reviewRecoveryCorrectOnce: 1
         case .reviewCorrectTwice: 2
         case .mastered: 3
         default: 0
@@ -19,7 +21,7 @@ enum MasteryState: String {
     }
 
     var explicitlyNeedsReview: Bool {
-        self == .needsReview || self == .reviewCorrectOnce || self == .reviewCorrectTwice
+        self == .needsReview || self == .reviewRecoveryNeeded || self == .reviewRecoveryCorrectOnce
     }
 }
 
@@ -108,14 +110,19 @@ extension QuestionProgress {
             return true
         }
 
-        // 舊版以 learning 搭配累計答對數表示可能仍有錯題；保留這些既有錯題，
-        // 但不把無法驗證是否連續、是否來自錯題複習的舊答案算進新連勝。
+        // 舊版已在錯題複習答對 1 或 2 次的狀態不再列為錯題；learning
+        // 中尚未消除的舊錯題仍保留，避免升級時遺失未複習題目。
         return state == .learning && attemptCount > correctCount
     }
 
     var wrongAnswerReviewStreak: Int {
         let state = MasteryState(rawValue: masteryState) ?? .new
         return state.reviewCorrectStreak
+    }
+
+    var requiresTwoCorrectReviews: Bool {
+        let state = MasteryState(rawValue: masteryState) ?? .new
+        return state == .reviewRecoveryNeeded || state == .reviewRecoveryCorrectOnce
     }
 }
 

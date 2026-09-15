@@ -123,7 +123,7 @@ struct TestHubView: View {
                     Label("測驗規則", systemImage: "info.circle.fill")
                         .font(.headline)
                         .foregroundStyle(Color.cranePrimaryBlue)
-                    Text("全題庫練習依題庫原始順序且不限時，選答後立即訂正並保存續作位置；錯題連續答對 3 次才會移出，期間答錯會歸零。模擬測驗在交卷前不顯示答案。")
+                    Text("全題庫練習依題庫原始順序且不限時，選答後立即訂正並保存續作位置；錯題複習答對 1 次即移出，複習中答錯則須連續答對 2 次。模擬測驗在交卷前不顯示答案。")
                         .font(.subheadline)
                         .foregroundStyle(.secondary)
                 }
@@ -286,7 +286,7 @@ struct StudyLibraryView: View {
             }
             if mode == .wrongAnswerReview {
                 Section {
-                    Label("每題須連續答對 3 次；任何一次答錯都會歸零重算。", systemImage: "repeat")
+                    Label("答對 1 次即移出；若在錯題複習中答錯，須再連續答對 2 次。", systemImage: "repeat")
                         .font(.footnote)
                         .foregroundStyle(.secondary)
                 }

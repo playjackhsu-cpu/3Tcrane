@@ -77,16 +77,13 @@ enum LearningPersistence {
             progress.correctCount += 1
             if mode == .wrongAnswerReview, previousState.explicitlyNeedsReview || wasLegacyReview {
                 switch previousState {
-                case .needsReview:
-                    progress.masteryState = MasteryState.reviewCorrectOnce.rawValue
-                case .reviewCorrectOnce:
-                    progress.masteryState = MasteryState.reviewCorrectTwice.rawValue
-                case .learning where wasLegacyReview:
-                    progress.masteryState = MasteryState.reviewCorrectOnce.rawValue
-                case .reviewCorrectTwice:
+                case .reviewRecoveryNeeded:
+                    progress.masteryState = MasteryState.reviewRecoveryCorrectOnce.rawValue
+                case .reviewRecoveryCorrectOnce:
                     progress.masteryState = MasteryState.mastered.rawValue
                 default:
-                    progress.masteryState = MasteryState.reviewCorrectOnce.rawValue
+                    // 初次錯題複習只需答對一次；僅在複習中答錯過才需連勝兩次。
+                    progress.masteryState = MasteryState.mastered.rawValue
                 }
             } else if previousState.explicitlyNeedsReview || wasLegacyReview {
                 // 只有「錯題複習」中的連續答對會消除錯題；其他模式答對不會
@@ -98,7 +95,9 @@ enum LearningPersistence {
                     : MasteryState.learning.rawValue
             }
         } else {
-            progress.masteryState = MasteryState.needsReview.rawValue
+            progress.masteryState = mode == .wrongAnswerReview
+                ? MasteryState.reviewRecoveryNeeded.rawValue
+                : MasteryState.needsReview.rawValue
         }
         progress.lastAnswerIndex = selectedIndex
         progress.lastAnsweredAt = answeredAt

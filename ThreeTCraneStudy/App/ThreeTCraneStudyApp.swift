@@ -25,7 +25,7 @@ struct ThreeTCraneStudyApp: App {
                     correctCount: seedsReviewRemoval ? 2 : 0,
                     lastAnsweredAt: .now.addingTimeInterval(-120),
                     masteryState: seedsReviewRemoval
-                        ? MasteryState.reviewCorrectTwice.rawValue
+                        ? MasteryState.reviewRecoveryCorrectOnce.rawValue
                         : MasteryState.needsReview.rawValue
                 ))
                 context.insert(QuestionProgress(
